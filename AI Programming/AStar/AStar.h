@@ -16,24 +16,8 @@ private:
     const static int iStartNode = 0;
     const static int iEndNode = 99;
     
-	void CreateGraph()
-	{
-		for (int i = 0; i < xMax; ++i){
-			for (int j = 0; j < yMax; ++j){
-				tRoot[i * yMax + j] = new Node(i,j);
-			}
-		}
-	}
-	void CreateGraphAdjs()
-	{
-		for (int i = 0; i < xMax; ++i){
-			for (int j = 0; j < yMax; ++j){
-				for (int k = 0; k < Node::numberOfAdjElements; ++k){
-
-				}
-			}
-		}
-	}
+    void CreateGraph();
+    void CreateGraphAdjs();
     void CreateNodeAdj(const int iRow, const int iCol);
     
     void ComputeGraphHeuristics();

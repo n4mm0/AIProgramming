@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\States">
+      <UniqueIdentifier>{c0d25bce-892b-4862-b4eb-2c9f3c2b127f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States">
+      <UniqueIdentifier>{44024c63-93f5-4fee-80f9-3e933ef42360}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\States\Dwarf">
+      <UniqueIdentifier>{0683ffeb-57db-4604-bb95-302f92daff8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States\Dwarf">
+      <UniqueIdentifier>{d0655230-1621-455a-ba8c-4a70a3cb9dfd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FiniteStateMachine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="DwarfIdleState.h">
+      <Filter>Header Files\States\Dwarf</Filter>
+    </ClInclude>
+    <ClInclude Include="DwarfMiningState.h">
+      <Filter>Header Files\States\Dwarf</Filter>
+    </ClInclude>
+    <ClInclude Include="DwarfWalkState.h">
+      <Filter>Header Files\States\Dwarf</Filter>
+    </ClInclude>
+    <ClInclude Include="Dwarf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DwarfIdleState.cpp">
+      <Filter>Source Files\States\Dwarf</Filter>
+    </ClCompile>
+    <ClCompile Include="DwarfWalkState.cpp">
+      <Filter>Source Files\States\Dwarf</Filter>
+    </ClCompile>
+    <ClCompile Include="DwarfMiningState.cpp">
+      <Filter>Source Files\States\Dwarf</Filter>
+    </ClCompile>
+    <ClCompile Include="Dwarf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -29,7 +29,7 @@ void Dwarf::Update(float _DeltaTime)
 	m_oFSM->Update();
 	if (m_oSprite != nullptr)
 	{
-		m_oSprite->update(m_vPosition);
+		m_oSprite->Update(m_vPosition);
 	}
 }
 

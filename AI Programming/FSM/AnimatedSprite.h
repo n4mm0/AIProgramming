@@ -1,5 +1,9 @@
 #pragma once
 
+/*
+To-Do: loop, speed
+*/
+
 #include "SFML\Graphics.hpp"
 #include <vector>
 #include "Animation.h"

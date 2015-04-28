@@ -1,18 +1,36 @@
 #include "Dwarf.h"
+#include "SFML\Graphics.hpp"
 
 int main(void)
 {
 	Dwarf myDwarf;
 	myDwarf.Init();
 
-	int iter = 0;
+	sf::Texture texture;
+	texture.loadFromFile("assets/dwarf.png");
+	myDwarf.SetupSprite(texture, 22, 38);
 
-	while (iter < 100)
+	unsigned int animarray[4] = { 0, 1, 0, 2, };
+	myDwarf.GetSprite()->addAnim("walkDown", animarray, 4, false);
+	myDwarf.GetSprite()->playAnim("walkDown");
+
+	sf::RenderWindow window(sf::VideoMode(800, 600), "Dwarf Job");
+
+	while (window.isOpen())
 	{
-		++iter;
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+
 		myDwarf.Update(0.1f);
+
+		window.clear();
+		window.draw(*(myDwarf.GetSprite()));
+		window.display();
 	}
 
-	getchar();
 	return 0;
 }

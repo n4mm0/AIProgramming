@@ -2,7 +2,7 @@
 #include "DwarfIdleState.h"
 #include <iostream>
 
-Dwarf::Dwarf() : m_fStamina(0.0f), m_sTarget("")
+Dwarf::Dwarf() : m_fStamina(0.0f), m_sTarget(""), m_oSprite(nullptr)
 {
 	std::cout << "Dwarf: Init" << std::endl << std::endl;
 	m_oFSM = new FiniteStateMachine<Dwarf>(this);
@@ -18,9 +18,35 @@ void Dwarf::Init()
 	m_oFSM->ChangeState(DwarfIdleState::GetInstance());
 }
 
+void Dwarf::SetupSprite(const sf::Texture& _texture, unsigned int _fw, unsigned int _fh)
+{
+	m_oSprite = new AnimatedSprite(_fw, _fh);
+	m_oSprite->setTexture(_texture);
+}
+
 void Dwarf::Update(float _DeltaTime)
 {
 	m_oFSM->Update();
+	if (m_oSprite != nullptr)
+	{
+		m_oSprite->update(m_vPosition);
+	}
+}
+
+AnimatedSprite* Dwarf::GetSprite()
+{
+	return m_oSprite;
+}
+
+void Dwarf::SetPosition(const sf::Vector2f& _position)
+{
+	m_vPosition.x = _position.x;
+	m_vPosition.y = _position.y;
+}
+
+const sf::Vector2f& Dwarf::GetPosition()
+{
+	return m_vPosition;
 }
 
 void Dwarf::SetTarget(string _Target)

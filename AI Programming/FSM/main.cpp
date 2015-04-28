@@ -3,13 +3,17 @@
 
 int main(void)
 {
+	sf::RenderWindow window(sf::VideoMode(800, 600), "Dwarf Job");
+
 	Dwarf myDwarf;
 	myDwarf.Init();
+	myDwarf.SetPosition(sf::Vector2f(50.0f, 50.0f));
 
-	sf::Texture texture;
-	texture.loadFromFile("assets/dwarf.png");
-	myDwarf.SetupSprite(texture, 22, 38);
-
+	sf::Texture tDwarf;
+	tDwarf.loadFromFile("assets/dwarf.png");
+	myDwarf.SetupSprite(tDwarf, 22, 38);
+	myDwarf.GetSprite()->setOrigin(sf::Vector2f(0.0f, 0.0f));
+	
 	unsigned int animarray[] = { 0, 1, 0, 2};
 	myDwarf.GetSprite()->addAnim("walkDown", animarray, 4, false);
 	animarray[0] = 3;
@@ -20,7 +24,10 @@ int main(void)
 
 	myDwarf.GetSprite()->playAnim("walkDown");
 
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Dwarf Job");
+	sf::Texture tBackground;
+	tBackground.loadFromFile("assets/background.png");
+	sf::Sprite sBackground;
+	sBackground.setTexture(tBackground);
 
 	while (window.isOpen())
 	{
@@ -34,6 +41,7 @@ int main(void)
 		myDwarf.Update(0.1f);
 
 		window.clear();
+		window.draw(sBackground);
 		window.draw(*(myDwarf.GetSprite()));
 		window.display();
 	}

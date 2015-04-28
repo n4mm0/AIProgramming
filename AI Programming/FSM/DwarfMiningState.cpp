@@ -28,7 +28,7 @@ void DwarfMiningState::OnUpdate(Dwarf* _Owner)
 {
 	if (_Owner->GetStamina() > 0.0f)
 	{
-		_Owner->SetStamina(_Owner->GetStamina() - 1.0f);
+		_Owner->SetStamina(_Owner->GetStamina() - 0.1f);
 		std::cout << "Current stamina " << _Owner->GetStamina() << std::endl;
 	}
 	else
@@ -39,5 +39,6 @@ void DwarfMiningState::OnUpdate(Dwarf* _Owner)
 
 void DwarfMiningState::OnExit(Dwarf* _Owner)
 {
-	_Owner->SetTarget("Home");
+	//_Owner->SetTarget("Home");
+	_Owner->SetTarget(sf::Vector2f(50.0f, 50.0f));
 }

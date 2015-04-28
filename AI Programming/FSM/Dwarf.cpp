@@ -2,7 +2,7 @@
 #include "DwarfIdleState.h"
 #include <iostream>
 
-Dwarf::Dwarf() : m_fStamina(0.0f), m_sTarget(""), m_oSprite(nullptr)
+Dwarf::Dwarf() : m_fStamina(0.0f), m_oSprite(nullptr)
 {
 	std::cout << "Dwarf: Init" << std::endl << std::endl;
 	m_oFSM = new FiniteStateMachine<Dwarf>(this);
@@ -27,6 +27,24 @@ void Dwarf::SetupSprite(const sf::Texture& _texture, unsigned int _fw, unsigned 
 void Dwarf::Update(float _DeltaTime)
 {
 	m_oFSM->Update();
+
+	//Let's apply the force!
+	m_vPosition += m_vMoveDirection;
+
+	//Change animation based on moveDirection
+	if (m_vMoveDirection.y < 0)
+	{
+		m_oSprite->playAnim("walkUp");
+	}
+	else
+	{
+		m_oSprite->playAnim("walkDown");
+	}
+
+	//We're done with the forces of this frame
+	m_vMoveDirection = sf::Vector2f(0.0f, 0.0f);
+
+	//Time to update the sprite
 	if (m_oSprite != nullptr)
 	{
 		m_oSprite->Update(m_vPosition);
@@ -49,14 +67,24 @@ const sf::Vector2f& Dwarf::GetPosition()
 	return m_vPosition;
 }
 
-void Dwarf::SetTarget(string _Target)
+void Dwarf::AddForce(const sf::Vector2f& _vector)
 {
-	m_sTarget = _Target;
+	m_vMoveDirection += _vector;
 }
 
-string Dwarf::GetTarget() const
+/*void Dwarf::Move(const sf::Vector2f& _position)
 {
-	return m_sTarget;
+	m_vPosition += _position;
+}*/
+
+void Dwarf::SetTarget(sf::Vector2f _Target)
+{
+	m_vTarget = _Target;
+}
+
+sf::Vector2f Dwarf::GetTarget() const
+{
+	return m_vTarget;
 }
 
 void Dwarf::SetStamina(float _Stamina)

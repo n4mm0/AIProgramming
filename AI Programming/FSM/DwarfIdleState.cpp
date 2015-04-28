@@ -22,14 +22,15 @@ void DwarfIdleState::OnEnter(Dwarf* _Owner)
 {
 	// Change colour
 	std::cout << "Sleeping..." << std::endl;
-	_Owner->SetTarget("");
+	//_Owner->SetTarget("");
+	_Owner->SetTarget(sf::Vector2f(0.f, 0.f));
 }
 
 void DwarfIdleState::OnUpdate(Dwarf* _Owner)
 {
 	if (_Owner->GetStamina() < _Owner->MAX_STAMINA)
 	{
-		_Owner->SetStamina(_Owner->GetStamina() + 1.0f);
+		_Owner->SetStamina(_Owner->GetStamina() + 0.1f);
 		std::cout << "Current stamina " << _Owner->GetStamina() << std::endl;
 	}
 	else
@@ -40,5 +41,6 @@ void DwarfIdleState::OnUpdate(Dwarf* _Owner)
 
 void DwarfIdleState::OnExit(Dwarf* _Owner)
 {
-	_Owner->SetTarget("Mines");
+	//_Owner->SetTarget("Mines");
+	_Owner->SetTarget(sf::Vector2f(100.0f, 400.0f));
 }

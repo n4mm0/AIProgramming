@@ -2,6 +2,7 @@
 #include "DwarfMiningState.h"
 #include "DwarfIdleState.h"
 #include <iostream>
+#include <math.h>
 
 DwarfWalkState* DwarfWalkState::m_oInstance = nullptr;
 
@@ -22,13 +23,13 @@ DwarfWalkState::~DwarfWalkState()
 void DwarfWalkState::OnEnter(Dwarf* _Owner)
 {
 	// Change colour
-	std::cout << "Walking towards " << _Owner->GetTarget() << std::endl;
+	//std::cout << "Walking towards " << _Owner->GetTarget() << std::endl;
 	_Owner->SetTime(0.0f);
 }
 
 void DwarfWalkState::OnUpdate(Dwarf* _Owner)
 {
-	if (_Owner->GetTime() < _Owner->MAX_TIME)
+	/*if (_Owner->GetTime() < _Owner->MAX_TIME)
 	{
 		_Owner->SetTime(_Owner->GetTime() + 0.1f);
 	}
@@ -42,6 +43,32 @@ void DwarfWalkState::OnUpdate(Dwarf* _Owner)
 		{
 			_Owner->ChangeState(DwarfIdleState::GetInstance());
 		}
+	}*/
+	float distance = powf(_Owner->GetPosition().x - _Owner->GetTarget().x, 2) + powf(_Owner->GetPosition().y - _Owner->GetTarget().y, 2);
+	distance = sqrtf(distance);
+
+	//Visto la posizione del nano non arriverà mai ad essere esattamente uguale a quella del target,
+	//Ho pensato di calcolare la distanza fra i due punti, se è minore di un certo limite, allora è arrivato!
+	if (_Owner->GetTarget() == sf::Vector2f(100.0f, 400.0f) && distance <2.0f)
+	{
+		_Owner->ChangeState(DwarfMiningState::GetInstance());
+	}
+	else if (_Owner->GetTarget() == sf::Vector2f(50.0f, 50.0f) && distance <2.0f)
+	{
+		_Owner->ChangeState(DwarfIdleState::GetInstance());
+	}
+	else
+	{
+		sf::Vector2f direction = _Owner->GetTarget() - _Owner->GetPosition();
+		//Let's normalize the vector!
+		float length = sqrt(direction.x*direction.x + direction.y*direction.y);
+		if (length != 0)
+		{
+			direction.x /= length;
+			direction.y /= length;
+		}
+		direction *= 0.1f; //Apply deltatime!
+		_Owner->AddForce(direction); //Move the damn dwarf!
 	}
 }
 

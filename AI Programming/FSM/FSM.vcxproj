@@ -75,6 +75,7 @@
     <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="DwarfIdleState.h" />
     <ClInclude Include="DwarfMiningState.h" />
+    <ClInclude Include="GameConst.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="DwarfWalkState.h" />
   </ItemGroup>

@@ -1,5 +1,6 @@
 #include "DwarfMiningState.h"
 #include "DwarfWalkState.h"
+#include "GameConst.h"
 #include <iostream>
 
 DwarfMiningState* DwarfMiningState::m_oInstance = nullptr;
@@ -40,5 +41,5 @@ void DwarfMiningState::OnUpdate(Dwarf* _Owner)
 void DwarfMiningState::OnExit(Dwarf* _Owner)
 {
 	//_Owner->SetTarget("Home");
-	_Owner->SetTarget(sf::Vector2f(50.0f, 50.0f));
+	_Owner->SetTarget(GameConst::HOME_POSITION);
 }

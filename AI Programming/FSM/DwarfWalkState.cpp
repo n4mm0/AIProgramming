@@ -1,6 +1,7 @@
 #include "DwarfWalkState.h"
 #include "DwarfMiningState.h"
 #include "DwarfIdleState.h"
+#include "GameConst.h"
 #include <iostream>
 #include <math.h>
 
@@ -24,7 +25,7 @@ void DwarfWalkState::OnEnter(Dwarf* _Owner)
 {
 	// Change colour
 	//std::cout << "Walking towards " << _Owner->GetTarget() << std::endl;
-	_Owner->SetTime(0.0f);
+	_Owner->SetTime(0.0f); // Serve ancora il time?
 }
 
 void DwarfWalkState::OnUpdate(Dwarf* _Owner)
@@ -49,11 +50,11 @@ void DwarfWalkState::OnUpdate(Dwarf* _Owner)
 
 	//Visto la posizione del nano non arriverà mai ad essere esattamente uguale a quella del target,
 	//Ho pensato di calcolare la distanza fra i due punti, se è minore di un certo limite, allora è arrivato!
-	if (_Owner->GetTarget() == sf::Vector2f(100.0f, 400.0f) && distance <2.0f)
+	if (_Owner->GetTarget() == GameConst::MINES_POSITION && distance <2.0f)
 	{
 		_Owner->ChangeState(DwarfMiningState::GetInstance());
 	}
-	else if (_Owner->GetTarget() == sf::Vector2f(50.0f, 50.0f) && distance <2.0f)
+	else if (_Owner->GetTarget() == GameConst::HOME_POSITION && distance <2.0f)
 	{
 		_Owner->ChangeState(DwarfIdleState::GetInstance());
 	}

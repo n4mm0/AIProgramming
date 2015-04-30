@@ -1,4 +1,5 @@
 #include "Dwarf.h"
+#include "GameConst.h"
 #include "SFML\Graphics.hpp"
 
 int main(void)
@@ -7,12 +8,12 @@ int main(void)
 
 	Dwarf myDwarf;
 	myDwarf.Init();
-	myDwarf.SetPosition(sf::Vector2f(50.0f, 50.0f));
+	myDwarf.SetPosition(GameConst::HOME_POSITION);
 
 	sf::Texture tDwarf;
 	tDwarf.loadFromFile("assets/dwarf.png");
 	myDwarf.SetupSprite(tDwarf, 22, 38);
-	myDwarf.GetSprite()->setOrigin(sf::Vector2f(0.0f, 0.0f));
+	myDwarf.GetSprite()->setOrigin(GameConst::VEC2_ZERO);
 	
 	unsigned int animarray[] = { 0, 1, 0, 2};
 	myDwarf.GetSprite()->addAnim("walkDown", animarray, 4, false);

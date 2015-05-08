@@ -10,7 +10,6 @@ class Dwarf
 {
 public:
 	const float MAX_STAMINA = 50.0f;
-	const float MAX_TIME = 2.0f;
 
 	Dwarf();
 	~Dwarf();
@@ -30,8 +29,6 @@ public:
 	sf::Vector2f GetTarget() const;
 	void SetStamina(float _Stamina);
 	float GetStamina() const;
-	void SetTime(float _Time);
-	float GetTime() const;
 
 	void ChangeState(State<Dwarf>* _State);
 
@@ -41,7 +38,5 @@ private:
 	sf::Vector2f				m_vPosition;
 	sf::Vector2f				m_vMoveDirection;
 	float						m_fStamina;
-	float						m_fTime;
-	//string					m_sTarget;
 	sf::Vector2f				m_vTarget;
 };

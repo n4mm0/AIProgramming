@@ -97,16 +97,6 @@ float Dwarf::GetStamina() const
 	return m_fStamina;
 }
 
-void Dwarf::SetTime(float _Time)
-{
-	m_fTime = _Time;
-}
-
-float Dwarf::GetTime() const
-{
-	return m_fTime;
-}
-
 void Dwarf::ChangeState(State<Dwarf>* _State)
 {
 	std::cout << "Dwarf: Calling ChangeState on FSM" << std::endl;

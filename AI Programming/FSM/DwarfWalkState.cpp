@@ -25,7 +25,6 @@ void DwarfWalkState::OnEnter(Dwarf* _Owner)
 {
 	// Change colour
 	//std::cout << "Walking towards " << _Owner->GetTarget() << std::endl;
-	_Owner->SetTime(0.0f); // Serve ancora il time?
 }
 
 void DwarfWalkState::OnUpdate(Dwarf* _Owner)

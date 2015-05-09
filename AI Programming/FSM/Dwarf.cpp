@@ -1,16 +1,27 @@
 #include "Dwarf.h"
 #include "DwarfIdleState.h"
+#include "GameConst.h"
 #include <iostream>
 
-Dwarf::Dwarf() : m_fStamina(0.0f), m_oSprite(nullptr)
+Dwarf::Dwarf() : m_fStamina(0.0f), m_iBackpackSize(0), m_oSprite(nullptr)
 {
 	std::cout << "Dwarf: Init" << std::endl << std::endl;
+	m_fMaxStamina = GameConst::MAX_STAMINA;
+	m_iBackpackCapacity = GameConst::BACKPACK_CAPACITY;
 	m_oFSM = new FiniteStateMachine<Dwarf>(this);
 }
 
 Dwarf::~Dwarf()
 {
 	delete m_oFSM;
+}
+
+Dwarf::Dwarf(float _MaxStamina, int _BackpackCapacity) : m_fStamina(0.0f), m_iBackpackSize(0), m_oSprite(nullptr)
+{
+	std::cout << "Dwarf: Init" << std::endl << std::endl;
+	m_fMaxStamina = _MaxStamina;
+	m_iBackpackCapacity = _BackpackCapacity;
+	m_oFSM = new FiniteStateMachine<Dwarf>(this);
 }
 
 void Dwarf::Init()
@@ -95,6 +106,32 @@ void Dwarf::SetStamina(float _Stamina)
 float Dwarf::GetStamina() const
 {
 	return m_fStamina;
+}
+
+float Dwarf::GetMaxStamina() const
+{
+	return m_fMaxStamina;
+}
+
+void Dwarf::AddDiamond()
+{
+	// TODO: slow down diamond gathering... Timer?
+	++m_iBackpackSize;
+}
+
+int Dwarf::GetBackpackSize() const
+{
+	return m_iBackpackSize;
+}
+
+int Dwarf::GetBackpackCapacity() const
+{
+	return m_iBackpackCapacity;
+}
+
+void Dwarf::EmptyBackPack()
+{
+	m_iBackpackSize = 0;
 }
 
 void Dwarf::ChangeState(State<Dwarf>* _State)

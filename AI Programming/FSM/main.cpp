@@ -6,7 +6,7 @@ int main(void)
 {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Dwarf Job");
 
-	Dwarf myDwarf;
+	Dwarf myDwarf(50.0f,10);
 	myDwarf.Init();
 	myDwarf.SetPosition(GameConst::HOME_POSITION);
 

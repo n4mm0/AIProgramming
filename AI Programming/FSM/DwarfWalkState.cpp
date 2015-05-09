@@ -23,27 +23,11 @@ DwarfWalkState::~DwarfWalkState()
 
 void DwarfWalkState::OnEnter(Dwarf* _Owner)
 {
-	// Change colour
-	//std::cout << "Walking towards " << _Owner->GetTarget() << std::endl;
+	// Do nothing
 }
 
 void DwarfWalkState::OnUpdate(Dwarf* _Owner)
 {
-	/*if (_Owner->GetTime() < _Owner->MAX_TIME)
-	{
-		_Owner->SetTime(_Owner->GetTime() + 0.1f);
-	}
-	else
-	{
-		if (_Owner->GetTarget() == "Mines")
-		{
-			_Owner->ChangeState(DwarfMiningState::GetInstance());
-		}
-		else if (_Owner->GetTarget() == "Home")
-		{
-			_Owner->ChangeState(DwarfIdleState::GetInstance());
-		}
-	}*/
 	float distance = powf(_Owner->GetPosition().x - _Owner->GetTarget().x, 2) + powf(_Owner->GetPosition().y - _Owner->GetTarget().y, 2);
 	distance = sqrtf(distance);
 

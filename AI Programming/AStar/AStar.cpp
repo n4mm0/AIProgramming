@@ -3,7 +3,7 @@
 
 #include "AStar.h"
 
-void AStar::Run()
+void AStar::Setup()
 {
     CreateGraph();
     
@@ -11,9 +11,53 @@ void AStar::Run()
     
     ComputeGraphHeuristics();
     
-    Search();
+	AddNodeToOpenList(NULL, tRoot[iStartNode]);
+    /*Search();
     
-    Clean();
+    Clean();*/
+}
+
+bool AStar::Step(sf::RectangleShape board[])
+{
+	Node* pCurrentNode = VisitNode();
+
+	UpdateBoardGraphic(board);
+
+	if (pCurrentNode == tRoot[iEndNode])
+	{
+		PrintPath(pCurrentNode, board);
+		return true;
+	}
+
+	board[pCurrentNode->X()*yMax + pCurrentNode->Y()].setFillColor(sf::Color::Red);
+
+	return false;
+}
+
+void AStar::UpdateBoardGraphic(sf::RectangleShape board[])
+{
+	for (int i = 0; i < xMax*yMax; ++i)
+	{
+		switch (tRoot[i]->eState)
+		{
+			case NodeState::Closed:
+			{
+				board[i].setFillColor(sf::Color::Yellow);
+				break;
+			}
+			case NodeState::Open:
+			{
+				board[i].setFillColor(sf::Color::Blue);
+				break;
+			}
+			default: break;
+		}
+
+		if (tRoot[i] == tRoot[iEndNode])
+		{
+			board[i].setFillColor(sf::Color::White);
+		}
+	}
 }
 
 void AStar::CreateGraph()
@@ -118,7 +162,7 @@ void AStar::Search()
         
         if (pCurrentNode == tRoot[iEndNode])
         {
-            PrintPath(pCurrentNode);
+            //PrintPath(pCurrentNode, board);
             break;
         }
     }
@@ -212,7 +256,7 @@ void AStar::AddNodeToOpenList(Node* pParent, Node* pNode)
     }
 }
 
-void AStar::PrintPath(Node* pNode) const
+void AStar::PrintPath(Node* pNode, sf::RectangleShape board[]) const
 {
     std::list<Node*> lPath;
     while (pNode != NULL)
@@ -223,13 +267,20 @@ void AStar::PrintPath(Node* pNode) const
     
     std::cout << "\n\nPATH FOUND - ";
     
-    std::list<Node*>::iterator iEnd(lPath.end());
+	std::list<Node*>::iterator iEnd(lPath.end());
+	for (std::list<Node*>::iterator iter = lPath.begin(); iter != iEnd; ++iter)
+	{
+		board[(*iter)->X()*yMax + (*iter)->Y()].setFillColor(sf::Color::Green);
+		std::cout << "(" << (*iter)->X() << "," << (*iter)->Y() << ")";
+	}
+
+    /*std::list<Node*>::iterator iEnd(lPath.end());
     for (std::list<Node*>::iterator iter = lPath.begin(); iter != iEnd; ++iter)
     {
         std::cout << "(" << (*iter)->X() << "," << (*iter)->Y() << ")";
     }
     
-    std::cout << "\n\n\n";
+    std::cout << "\n\n\n";*/
 }
 
 

@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FSM", "FSM\FSM.vcxproj", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AStar", "AStar\AStar.vcxproj", "{592A0CB7-4197-446D-B3EC-B255A84457DD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "15Puzzle", "15Puzzle\15Puzzle.vcxproj", "{FFB03CFC-E368-4351-9E57-362AC67388B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -21,6 +23,10 @@ Global
 		{592A0CB7-4197-446D-B3EC-B255A84457DD}.Debug|Win32.Build.0 = Debug|Win32
 		{592A0CB7-4197-446D-B3EC-B255A84457DD}.Release|Win32.ActiveCfg = Release|Win32
 		{592A0CB7-4197-446D-B3EC-B255A84457DD}.Release|Win32.Build.0 = Release|Win32
+		{FFB03CFC-E368-4351-9E57-362AC67388B3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FFB03CFC-E368-4351-9E57-362AC67388B3}.Debug|Win32.Build.0 = Debug|Win32
+		{FFB03CFC-E368-4351-9E57-362AC67388B3}.Release|Win32.ActiveCfg = Release|Win32
+		{FFB03CFC-E368-4351-9E57-362AC67388B3}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

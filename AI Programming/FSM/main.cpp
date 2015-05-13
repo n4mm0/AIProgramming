@@ -37,6 +37,9 @@ int main(void)
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+			else if (event.type == sf::Event::KeyPressed)
+				if (event.key.code == sf::Keyboard::Escape)
+					window.close();
 		}
 
 		myDwarf.Update(0.1f);

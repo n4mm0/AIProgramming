@@ -40,6 +40,11 @@ void AStar::UpdateBoardGraphic(sf::RectangleShape board[])
 	{
 		switch (tRoot[i]->eState)
 		{
+			case NodeState::Block:
+			{
+				board[i].setFillColor(sf::Color::Black);
+				break;
+			}
 			case NodeState::Closed:
 			{
 				board[i].setFillColor(sf::Color::Yellow);
@@ -74,7 +79,13 @@ void AStar::CreateGraph()
         std::cout << "\n";
     }
     std::cout << "Creating Nodes...DONE\n\n";
-    
+
+	srand(time(NULL));
+	int nBlocks = rand()%15+15;
+	for (int i = 0; i < nBlocks; ++i)
+	{
+		tRoot[rand() % 99]->eState = NodeState::Block;
+	}
 }
 
 void AStar::CreateGraphAdjs()
@@ -150,7 +161,7 @@ void AStar::Clean()
     }
     std::cout << "Deleting Nodes...\n\n";
 }
-
+/*
 void AStar::Search()
 {
     AddNodeToOpenList(NULL, tRoot[iStartNode]);
@@ -166,7 +177,7 @@ void AStar::Search()
             break;
         }
     }
-}
+}*/
 
 Node* AStar::VisitNode()
 {
@@ -205,6 +216,9 @@ void AStar::AddNodeToOpenList(Node* pParent, Node* pNode)
     
     switch (pNode->eState)
     {
+		case NodeState::Block:
+			return;
+
         case NodeState::Closed:
             if (pNode->iG <= pParent->iG + 1)
             {

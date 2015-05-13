@@ -5,7 +5,8 @@ enum NodeState
 {
     Unknown,
     Open,
-    Closed
+    Closed,
+	Block
 };
 
 #endif

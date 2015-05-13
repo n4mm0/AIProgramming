@@ -1,6 +1,6 @@
 #include <cmath>
 #include <list>
-
+#include <iostream>
 #include "AStar.h"
 
 void AStar::Setup()
@@ -19,7 +19,16 @@ void AStar::Setup()
 
 bool AStar::Step(sf::RectangleShape board[])
 {
-	Node* pCurrentNode = VisitNode();
+	Node* pCurrentNode;
+	if (!qOpenList.empty())
+	{
+		pCurrentNode = VisitNode();
+	}
+	else
+	{ 
+		std::cout << "Can't find a path" << std::endl;
+		return true;
+	}
 
 	UpdateBoardGraphic(board);
 
@@ -81,7 +90,7 @@ void AStar::CreateGraph()
     std::cout << "Creating Nodes...DONE\n\n";
 
 	srand(time(NULL));
-	int nBlocks = rand()%15+15;
+	int nBlocks = rand()%30+15;
 	for (int i = 0; i < nBlocks; ++i)
 	{
 		//Non consideriamo il primo e l'ultimo nodo, cioé l'inizio e la fine

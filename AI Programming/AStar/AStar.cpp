@@ -84,7 +84,8 @@ void AStar::CreateGraph()
 	int nBlocks = rand()%15+15;
 	for (int i = 0; i < nBlocks; ++i)
 	{
-		tRoot[rand() % 99]->eState = NodeState::Block;
+		//Non consideriamo il primo e l'ultimo nodo, cioé l'inizio e la fine
+		tRoot[rand() % 98 + 1]->eState = NodeState::Block;
 	}
 }
 

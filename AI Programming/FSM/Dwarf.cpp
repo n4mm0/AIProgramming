@@ -1,14 +1,15 @@
 #include "Dwarf.h"
 #include "DwarfIdleState.h"
+#include "DwarfGlobalState.h"
 #include "GameConst.h"
 #include <iostream>
 
-Dwarf::Dwarf() : m_fStamina(0.0f), m_iBackpackSize(0), m_oSprite(nullptr)
+Dwarf::Dwarf() : m_fStamina(0.0f), m_iBackpackSize(0), m_iTimer(0), m_oSprite(nullptr)
 {
 	std::cout << "Dwarf: Init" << std::endl << std::endl;
 	m_fMaxStamina = GameConst::MAX_STAMINA;
 	m_iBackpackCapacity = GameConst::BACKPACK_CAPACITY;
-	m_oFSM = new FiniteStateMachine<Dwarf>(this);
+	m_oFSM = new FiniteStateMachine<Dwarf>(this, DwarfGlobalState::GetInstance());
 }
 
 Dwarf::~Dwarf()
@@ -16,12 +17,13 @@ Dwarf::~Dwarf()
 	delete m_oFSM;
 }
 
-Dwarf::Dwarf(float _MaxStamina, int _BackpackCapacity) : m_fStamina(0.0f), m_iBackpackSize(0), m_oSprite(nullptr)
+Dwarf::Dwarf(float _MaxStamina, float _MinStamina, int _BackpackCapacity) : m_fStamina(0.0f), m_iBackpackSize(0), m_iTimer(0), m_oSprite(nullptr)
 {
 	std::cout << "Dwarf: Init" << std::endl << std::endl;
 	m_fMaxStamina = _MaxStamina;
+	m_fMinStamina = _MinStamina;
 	m_iBackpackCapacity = _BackpackCapacity;
-	m_oFSM = new FiniteStateMachine<Dwarf>(this);
+	m_oFSM = new FiniteStateMachine<Dwarf>(this, DwarfGlobalState::GetInstance());
 }
 
 void Dwarf::Init()
@@ -113,10 +115,22 @@ float Dwarf::GetMaxStamina() const
 	return m_fMaxStamina;
 }
 
+float Dwarf::GetMinStamina() const
+{
+	return m_fMinStamina;
+}
+
 void Dwarf::AddDiamond()
 {
-	// TODO: slow down diamond gathering... Timer?
-	++m_iBackpackSize;
+	if (m_iTimer > 10)
+	{
+		++m_iBackpackSize;
+		m_iTimer = 0;
+	}
+	else
+	{
+		++m_iTimer;
+	}
 }
 
 int Dwarf::GetBackpackSize() const

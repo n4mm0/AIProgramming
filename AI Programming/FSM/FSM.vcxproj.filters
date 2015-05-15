@@ -54,6 +54,9 @@
     <ClInclude Include="GameConst.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DwarfGlobalState.h">
+      <Filter>Header Files\States\Dwarf</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -76,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DwarfGlobalState.cpp">
+      <Filter>Source Files\States\Dwarf</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -12,7 +12,7 @@ public:
 
 	Dwarf();
 	~Dwarf();
-	Dwarf(float _MaxStamina, int _BackpackCapacity);
+	Dwarf(float _MaxStamina, float _MinStamina, int _BackpackCapacity);
 
 	void Init();
 	void SetupSprite(const sf::Texture& _texture, unsigned int _fw, unsigned int _fh);
@@ -28,6 +28,7 @@ public:
 	void SetStamina(float _Stamina);
 	float GetStamina() const;
 	float GetMaxStamina() const;
+	float GetMinStamina() const;
 	void AddDiamond();
 	int GetBackpackSize() const;
 	int GetBackpackCapacity() const;
@@ -41,6 +42,6 @@ private:
 	sf::Vector2f				m_vPosition;
 	sf::Vector2f				m_vMoveDirection;
 	sf::Vector2f				m_vTarget;
-	float						m_fStamina, m_fMaxStamina;
-	int							m_iBackpackSize, m_iBackpackCapacity;
+	float						m_fStamina, m_fMaxStamina, m_fMinStamina;
+	int							m_iBackpackSize, m_iBackpackCapacity, m_iTimer;
 };

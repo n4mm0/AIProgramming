@@ -26,7 +26,7 @@ void DwarfMiningState::OnEnter(Dwarf* _Owner)
 
 void DwarfMiningState::OnUpdate(Dwarf* _Owner)
 {
-	if (_Owner->GetStamina() > 0.0f && _Owner->GetBackpackSize() < _Owner->GetBackpackCapacity())
+	if (_Owner->GetBackpackSize() < _Owner->GetBackpackCapacity())
 	{
 		_Owner->SetStamina(_Owner->GetStamina() - 0.1f);
 		std::cout << "Current stamina " << _Owner->GetStamina() << std::endl;
@@ -35,11 +35,11 @@ void DwarfMiningState::OnUpdate(Dwarf* _Owner)
 	}
 	else
 	{
+		_Owner->SetTarget(GameConst::HOME_POSITION);
 		_Owner->ChangeState(DwarfWalkState::GetInstance());
 	}
 }
 
 void DwarfMiningState::OnExit(Dwarf* _Owner)
 {
-	_Owner->SetTarget(GameConst::HOME_POSITION);
 }

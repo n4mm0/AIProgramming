@@ -72,6 +72,7 @@
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Dwarf.h" />
+    <ClInclude Include="DwarfGlobalState.h" />
     <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="DwarfIdleState.h" />
     <ClInclude Include="DwarfMiningState.h" />
@@ -83,6 +84,7 @@
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Dwarf.cpp" />
+    <ClCompile Include="DwarfGlobalState.cpp" />
     <ClCompile Include="DwarfIdleState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="DwarfMiningState.cpp" />

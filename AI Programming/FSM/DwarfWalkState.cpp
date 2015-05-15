@@ -23,7 +23,6 @@ DwarfWalkState::~DwarfWalkState()
 
 void DwarfWalkState::OnEnter(Dwarf* _Owner)
 {
-	// Do nothing
 }
 
 void DwarfWalkState::OnUpdate(Dwarf* _Owner)

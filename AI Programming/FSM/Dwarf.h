@@ -13,14 +13,15 @@ public:
 	Dwarf();
 	~Dwarf();
 	Dwarf(float _MaxStamina, int _BackpackCapacity);
+	Dwarf(const Dwarf& other);
 
 	void Init();
 	void SetupSprite(const sf::Texture& _texture, unsigned int _fw, unsigned int _fh);
 	void Update(float _DeltaTime);
 	
-	AnimatedSprite* GetSprite(); //E se tornasse una reference invece che un puntatore?
+	AnimatedSprite* GetSprite() const; //E se tornasse una reference invece che un puntatore?
 	void SetPosition(const sf::Vector2f& _position);
-	const sf::Vector2f& GetPosition();
+	const sf::Vector2f& GetPosition() const;
 	//void Move(const sf::Vector2f& _position);
 	void AddForce(const sf::Vector2f& _vector);
 	void SetTarget(sf::Vector2f _Target);

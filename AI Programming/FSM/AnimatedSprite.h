@@ -14,6 +14,7 @@ class AnimatedSprite : public sf::Sprite
 {
 	public:
 		AnimatedSprite(unsigned int _fw, unsigned int _fh);
+		AnimatedSprite(const AnimatedSprite& other);
 		~AnimatedSprite();
 
 		void Update(const sf::Vector2f& _position); //Updates position and animation
@@ -23,6 +24,8 @@ class AnimatedSprite : public sf::Sprite
 		void stopAnim();
 		void pauseAnim();
 		void resumeAnim();
+		unsigned int getFrameWidth() const;
+		unsigned int getFrameHeight() const;
 
 	private:
 		vecAnim animations;

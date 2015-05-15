@@ -3,6 +3,16 @@
 //Width and height of a single frame of the spritesheet. FYI, all frames should have the same size!
 AnimatedSprite::AnimatedSprite(unsigned int _fw, unsigned int _fh) : Sprite(), frameWidth(_fw), frameHeight(_fh) {}
 
+AnimatedSprite::AnimatedSprite(const AnimatedSprite& other)
+{
+	if (this != &other)
+	{
+		animations = other.animations;
+		currAnim = other.currAnim;
+		//to-do
+	}
+}
+
 AnimatedSprite::~AnimatedSprite()
 {
 	animations.clear();
@@ -71,4 +81,13 @@ void AnimatedSprite::resumeAnim()
 	{
 		isPaused = false;
 	}
+}
+
+unsigned int AnimatedSprite::getFrameWidth() const
+{
+	return frameWidth;
+}
+unsigned int AnimatedSprite::getFrameHeight() const
+{
+	return frameHeight;
 }

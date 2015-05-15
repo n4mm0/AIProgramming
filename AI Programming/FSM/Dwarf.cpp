@@ -13,7 +13,7 @@ Dwarf::Dwarf() : m_fStamina(0.0f), m_iBackpackSize(0), m_oSprite(nullptr)
 
 Dwarf::~Dwarf()
 {
-	delete m_oFSM;
+	//delete m_oFSM;
 }
 
 Dwarf::Dwarf(float _MaxStamina, int _BackpackCapacity) : m_fStamina(0.0f), m_iBackpackSize(0), m_oSprite(nullptr)
@@ -22,6 +22,17 @@ Dwarf::Dwarf(float _MaxStamina, int _BackpackCapacity) : m_fStamina(0.0f), m_iBa
 	m_fMaxStamina = _MaxStamina;
 	m_iBackpackCapacity = _BackpackCapacity;
 	m_oFSM = new FiniteStateMachine<Dwarf>(this);
+}
+
+Dwarf::Dwarf(const Dwarf& other)
+{
+	m_oFSM = other.m_oFSM;
+	//SetupSprite(*(other.GetSprite()->getTexture()), other.GetSprite()->getFrameWidth(), other.GetSprite()->getFrameHeight());
+	m_oSprite = other.m_oSprite;
+	m_vPosition = other.GetPosition();
+	m_vTarget = other.GetTarget();
+	m_fStamina = other.GetStamina();
+	m_iBackpackSize = other.GetBackpackSize();
 }
 
 void Dwarf::Init()
@@ -62,7 +73,7 @@ void Dwarf::Update(float _DeltaTime)
 	}
 }
 
-AnimatedSprite* Dwarf::GetSprite()
+AnimatedSprite* Dwarf::GetSprite() const
 {
 	return m_oSprite;
 }
@@ -73,7 +84,7 @@ void Dwarf::SetPosition(const sf::Vector2f& _position)
 	m_vPosition.y = _position.y;
 }
 
-const sf::Vector2f& Dwarf::GetPosition()
+const sf::Vector2f& Dwarf::GetPosition() const
 {
 	return m_vPosition;
 }

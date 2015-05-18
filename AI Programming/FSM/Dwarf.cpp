@@ -33,6 +33,24 @@ Dwarf::Dwarf(const Dwarf& other)
 	m_vTarget = other.GetTarget();
 	m_fStamina = other.GetStamina();
 	m_iBackpackSize = other.GetBackpackSize();
+	m_vMoveDirection = other.m_vMoveDirection;
+}
+
+Dwarf& Dwarf::operator=(const Dwarf& other)
+{
+	if (this != &other)
+	{
+		m_oFSM = other.m_oFSM;
+		//SetupSprite(*(other.GetSprite()->getTexture()), other.GetSprite()->getFrameWidth(), other.GetSprite()->getFrameHeight());
+		m_oSprite = other.m_oSprite;
+		m_vPosition = other.GetPosition();
+		m_vTarget = other.GetTarget();
+		m_fStamina = other.GetStamina();
+		m_iBackpackSize = other.GetBackpackSize();
+		m_vMoveDirection = other.m_vMoveDirection;
+	}
+
+	return *this;
 }
 
 void Dwarf::Init()

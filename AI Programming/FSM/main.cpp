@@ -2,6 +2,11 @@
 #include "GameConst.h"
 #include "SFML\Graphics.hpp"
 
+bool dwarfCmp(const Dwarf& first, const Dwarf& second)
+{
+	return first.GetPosition().y < second.GetPosition().y;
+}
+
 int main(void)
 {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Dwarf Job");
@@ -9,7 +14,8 @@ int main(void)
 	sf::Texture tDwarf;
 	tDwarf.loadFromFile("assets/dwarf.png");
 
-	Dwarf dwarves[7];
+	std::vector<Dwarf> dwarves;
+	dwarves.resize(7);
 	for (int i = 0; i < 7; ++i)
 	{
 		dwarves[i].Init();
@@ -65,10 +71,14 @@ int main(void)
 		}
 
 		//myDwarf.Update(0.1f);
+
+		sort(dwarves.begin(), dwarves.end(), dwarfCmp);
+
 		for (int i = 0; i < 7; ++i)
 		{
 			dwarves[i].Update(0.1f);
 		}
+
 
 		//Let's sort the dwarves for the Y coordinate
 		/*bool sorted = false;

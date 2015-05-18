@@ -14,6 +14,7 @@ public:
 	~Dwarf();
 	Dwarf(float _MaxStamina, int _BackpackCapacity);
 	Dwarf(const Dwarf& other);
+	Dwarf& operator=(const Dwarf& other);
 
 	void Init();
 	void SetupSprite(const sf::Texture& _texture, unsigned int _fw, unsigned int _fh);

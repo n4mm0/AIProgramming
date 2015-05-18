@@ -24,6 +24,7 @@ DwarfWalkState::~DwarfWalkState()
 void DwarfWalkState::OnEnter(Dwarf* _Owner)
 {
 	// Do nothing
+	//Settiamo il target, settiamo la velocità
 }
 
 void DwarfWalkState::OnUpdate(Dwarf* _Owner)

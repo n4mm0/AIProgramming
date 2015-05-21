@@ -21,7 +21,6 @@ DwarfIdleState::~DwarfIdleState()
 
 void DwarfIdleState::OnEnter(Dwarf* _Owner)
 {
-	std::cout << "Sleeping..." << std::endl;
 	_Owner->SetStamina(_Owner->GetMinStamina() + 0.5f);
 	_Owner->SetTarget(GameConst::VEC2_ZERO);
 	_Owner->EmptyBackPack();
@@ -32,7 +31,6 @@ void DwarfIdleState::OnUpdate(Dwarf* _Owner)
 	if (_Owner->GetStamina() < _Owner->GetMaxStamina())
 	{
 		_Owner->SetStamina(_Owner->GetStamina() + 0.1f);
-		std::cout << "Current stamina " << _Owner->GetStamina() << std::endl;
 	}
 	else
 	{

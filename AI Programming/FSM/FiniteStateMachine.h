@@ -9,7 +9,6 @@ public:
 	FiniteStateMachine(T* _Owner, State<T>* _GlobalState) : m_oOwner(_Owner), m_oGlobalState(_GlobalState), m_oActualState(nullptr), m_oPreviousState(nullptr){};
 	void ChangeState(State<T>* _newState)
 	{
-		std::cout << "FSM: Changing state..." << std::endl;
 		if (m_oActualState != nullptr)
 		{
 			m_oActualState->OnExit(m_oOwner);

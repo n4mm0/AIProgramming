@@ -57,5 +57,4 @@ void DwarfWalkState::OnUpdate(Dwarf* _Owner)
 
 void DwarfWalkState::OnExit(Dwarf* _Owner)
 {
-	// Do nothing
 }

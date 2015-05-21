@@ -4,7 +4,7 @@
 #include "AnimatedSprite.h"
 #include "Actor.h"
 
-class Dwarf : public Actor
+class Dwarf : public Actor<Dwarf>
 {
 public:
 	Dwarf();

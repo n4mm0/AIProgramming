@@ -4,7 +4,7 @@
 #include "AnimatedSprite.h"
 #include "Actor.h"
 
-class Dwarf : public Actor<Dwarf>
+class Dwarf : public Actor
 {
 public:
 	Dwarf();
@@ -13,6 +13,7 @@ public:
 
 	void Init();
 	void Update(float _DeltaTime);
+	
 	void ChangeState(State<Dwarf>* _State);
 
 	void SetupSprite(const sf::Texture& _texture, unsigned int _fw, unsigned int _fh);

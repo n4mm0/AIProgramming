@@ -25,6 +25,12 @@
     <Filter Include="Source Files\States\Dwarf">
       <UniqueIdentifier>{d0655230-1621-455a-ba8c-4a70a3cb9dfd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Actors">
+      <UniqueIdentifier>{9a80475a-3b53-4a9d-b4f1-112a305a77ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Actors">
+      <UniqueIdentifier>{09ee9a56-b5c0-4868-8311-9aa851df04b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FiniteStateMachine.h">
@@ -42,9 +48,6 @@
     <ClInclude Include="DwarfWalkState.h">
       <Filter>Header Files\States\Dwarf</Filter>
     </ClInclude>
-    <ClInclude Include="Dwarf.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AnimatedSprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -56,6 +59,12 @@
     </ClInclude>
     <ClInclude Include="DwarfGlobalState.h">
       <Filter>Header Files\States\Dwarf</Filter>
+    </ClInclude>
+    <ClInclude Include="Dwarf.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Header Files\Actors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -71,9 +80,6 @@
     <ClCompile Include="DwarfMiningState.cpp">
       <Filter>Source Files\States\Dwarf</Filter>
     </ClCompile>
-    <ClCompile Include="Dwarf.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AnimatedSprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -82,6 +88,9 @@
     </ClCompile>
     <ClCompile Include="DwarfGlobalState.cpp">
       <Filter>Source Files\States\Dwarf</Filter>
+    </ClCompile>
+    <ClCompile Include="Dwarf.cpp">
+      <Filter>Source Files\Actors</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -6,7 +6,6 @@
 
 Dwarf::Dwarf() : m_fStamina(0.0f), m_iBackpackSize(0), m_iTimer(0), m_oSprite(nullptr)
 {
-	std::cout << "Dwarf: Init" << std::endl << std::endl;
 	m_fMaxStamina = GameConst::MAX_STAMINA;
 	m_iBackpackCapacity = GameConst::BACKPACK_CAPACITY;
 	m_oFSM = new FiniteStateMachine<Dwarf>(this, DwarfGlobalState::GetInstance());
@@ -19,7 +18,6 @@ Dwarf::~Dwarf()
 
 Dwarf::Dwarf(float _MaxStamina, float _MinStamina, int _BackpackCapacity) : m_fStamina(0.0f), m_iBackpackSize(0), m_iTimer(0), m_oSprite(nullptr)
 {
-	std::cout << "Dwarf: Init" << std::endl << std::endl;
 	m_fMaxStamina = _MaxStamina;
 	m_fMinStamina = _MinStamina;
 	m_iBackpackCapacity = _BackpackCapacity;
@@ -85,11 +83,6 @@ void Dwarf::AddForce(const sf::Vector2f& _vector)
 	m_vMoveDirection += _vector;
 }
 
-/*void Dwarf::Move(const sf::Vector2f& _position)
-{
-	m_vPosition += _position;
-}*/
-
 void Dwarf::SetTarget(sf::Vector2f _Target)
 {
 	m_vTarget = _Target;
@@ -150,6 +143,5 @@ void Dwarf::EmptyBackPack()
 
 void Dwarf::ChangeState(State<Dwarf>* _State)
 {
-	std::cout << "Dwarf: Calling ChangeState on FSM" << std::endl;
 	m_oFSM->ChangeState(_State);
 }

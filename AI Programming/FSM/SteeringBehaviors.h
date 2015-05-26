@@ -1,5 +1,4 @@
-#ifndef STEERINGBEHAVIORS_H
-#define STEERINGBEHAVIORS_H
+#pragma once
 
 #include "SFML\System\Vector2.hpp"
 #include <vector>
@@ -119,5 +118,3 @@ private:
 	sf::Vector2f Alignment(const sf::Vector2f& target);
 
 };
-
-#endif

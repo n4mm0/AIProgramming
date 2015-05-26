@@ -51,6 +51,12 @@ void SteeringBehaviors::SumForces()
 sf::Vector2f SteeringBehaviors::Seek(const sf::Vector2f& target)
 {
 	//return target - m_Actor->GetPosition();
+	/*
+	** We need to consider actor max velocity and apply it? In order to make it move slower, and not
+	** teleport to the target..
+	** Also we mentioned something about actor's turn rate at lesson.. Can we consider it 180 degrees
+	** (aka instant) for now?
+	*/
 	return sf::Vector2f(0.0f, 0.0f);
 }
 
@@ -62,6 +68,10 @@ sf::Vector2f SteeringBehaviors::Flee(const sf::Vector2f& target)
 sf::Vector2f SteeringBehaviors::Arrive(const sf::Vector2f& target)
 {
 	//Can't remember this one...
+	/*
+	** Seek the target but adjust your velocity while you are approaching it
+	** in order to arrive without "crashing" on it
+	*/
 	return sf::Vector2f(0.0f, 0.0f);
 }
 
@@ -69,10 +79,10 @@ sf::Vector2f SteeringBehaviors::Pursuit(const Actor* target)
 {
 	//From my notes...
 	/*
-	sf::Vector2f d = target->GetPosition() - m_Actor->GetPosition(); 
-	d = d / m_Actor->GetVelocity();
-	d = target->GetVelocity() * d;
-	return Seek(d);
+	** sf::Vector2f d = target->GetPosition() - m_Actor->GetPosition(); 
+	** d = d / m_Actor->GetVelocity();
+	** d = target->GetVelocity() * d;
+	** return Seek(d);
 	*/
 	return sf::Vector2f(0.0f, 0.0f);
 }

@@ -26,6 +26,7 @@ Dwarf::Dwarf(float _MaxStamina, float _MinStamina, int _BackpackCapacity) : m_fS
 
 void Dwarf::Init()
 {
+	Actor::Init(GameConst::MAX_DWARF_SPD);
 	m_oFSM->ChangeState(DwarfIdleState::GetInstance());
 }
 
@@ -37,6 +38,7 @@ void Dwarf::SetupSprite(const sf::Texture& _texture, unsigned int _fw, unsigned 
 
 void Dwarf::Update(float _DeltaTime)
 {
+	Actor::Update(_DeltaTime);
 	m_oFSM->Update();
 
 	//Let's apply the force!

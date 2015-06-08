@@ -8,5 +8,6 @@ namespace GameConst
 	const sf::Vector2f		VEC2_ZERO			= sf::Vector2f(0.0f,0.0f)		;
 
 	const float				MAX_STAMINA			= 50.0f							;
+	const float				MAX_DWARF_SPD		= 3.0f							;
 	const int				BACKPACK_CAPACITY	= 10							;
 }

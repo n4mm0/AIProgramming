@@ -1,11 +1,35 @@
 #pragma once
 
-class Actor abstract
+class Actor
 {
 public:
 	virtual ~Actor(){}
 
-	virtual void Init() = 0;
-	virtual void Update(float _DeltaTime) = 0;
-	// Should we add get/set Position? Not every actor may want to move..
+	virtual void Init(float _Velo)
+	{
+		m_fMaxVelocity = _Velo;
+	};
+
+	virtual void Update(float _DeltaTime)
+	{
+	};
+	
+	void SetVelocity(float _Velo)
+	{
+		m_fVelocity = _Velo;
+	}
+	
+	float GetVelocity() const
+	{
+		return m_fVelocity;
+	}
+	
+	float GetMaxVelocity() const
+	{
+		return m_fMaxVelocity;
+	}
+	
+protected:
+	float	m_fVelocity, m_fMaxVelocity;
+
 };

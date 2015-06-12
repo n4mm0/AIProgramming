@@ -9,6 +9,8 @@ Dwarf::Dwarf() : m_fStamina(0.0f), m_iBackpackSize(0), m_iTimer(0), m_oSprite(nu
 	m_fMaxStamina = GameConst::MAX_STAMINA;
 	m_iBackpackCapacity = GameConst::BACKPACK_CAPACITY;
 	m_oFSM = new FiniteStateMachine<Dwarf>(this, DwarfGlobalState::GetInstance());
+	m_oSteering = new SteeringBehaviors(this);
+	m_fVelocity = 2.0f; //hack, sarebbe meglio come parametro
 }
 
 Dwarf::~Dwarf()
@@ -22,6 +24,8 @@ Dwarf::Dwarf(float _MaxStamina, float _MinStamina, int _BackpackCapacity) : m_fS
 	m_fMinStamina = _MinStamina;
 	m_iBackpackCapacity = _BackpackCapacity;
 	m_oFSM = new FiniteStateMachine<Dwarf>(this, DwarfGlobalState::GetInstance());
+	m_oSteering = new SteeringBehaviors(this);
+	m_fVelocity = 2.0f; //hack, sarebbe meglio come parametro
 }
 
 void Dwarf::Init()
@@ -41,11 +45,17 @@ void Dwarf::Update(float _DeltaTime)
 	Actor::Update(_DeltaTime);
 	m_oFSM->Update();
 
+	m_vVelocity.x = 0;  //Blergh
+	m_vVelocity.y = 0;
+	m_oSteering->Calculate();
+	m_vVelocity = m_oSteering->GetForce();
+	m_vPosition += m_vVelocity;
+
 	//Let's apply the force!
-	m_vPosition += m_vMoveDirection;
+	//m_vPosition += m_vMoveDirection;
 
 	//Change animation based on moveDirection
-	if (m_vMoveDirection.y < 0)
+	if (m_vVelocity.y < 0)
 	{
 		m_oSprite->playAnim("walkUp");
 	}
@@ -54,8 +64,8 @@ void Dwarf::Update(float _DeltaTime)
 		m_oSprite->playAnim("walkDown");
 	}
 
-	//We're done with the forces of this frame
-	m_vMoveDirection = sf::Vector2f(0.0f, 0.0f);
+	////We're done with the forces of this frame
+	//m_vMoveDirection = sf::Vector2f(0.0f, 0.0f);
 
 	//Time to update the sprite
 	if (m_oSprite != nullptr)
@@ -69,30 +79,40 @@ AnimatedSprite* Dwarf::GetSprite()
 	return m_oSprite;
 }
 
-void Dwarf::SetPosition(const sf::Vector2f& _position)
+//void Dwarf::SetPosition(const sf::Vector2f& _position)
+//{
+//	m_vPosition.x = _position.x;
+//	m_vPosition.y = _position.y;
+//}
+//
+//const sf::Vector2f& Dwarf::GetPosition()
+//{
+//	return m_vPosition;
+//}
+
+//void Dwarf::AddForce(const sf::Vector2f& _vector)
+//{
+//	m_vMoveDirection += _vector;
+//}
+
+//void Dwarf::SetTarget(sf::Vector2f _Target)
+//{
+//	m_vTarget = _Target;
+//}
+//
+//sf::Vector2f Dwarf::GetTarget() const
+//{
+//	return m_vTarget;
+//}
+
+const FiniteStateMachine<Dwarf>* const Dwarf::GetFSM() const
 {
-	m_vPosition.x = _position.x;
-	m_vPosition.y = _position.y;
+	return m_oFSM;
 }
 
-const sf::Vector2f& Dwarf::GetPosition()
+SteeringBehaviors* Dwarf::GetSteeringBehaviors()
 {
-	return m_vPosition;
-}
-
-void Dwarf::AddForce(const sf::Vector2f& _vector)
-{
-	m_vMoveDirection += _vector;
-}
-
-void Dwarf::SetTarget(sf::Vector2f _Target)
-{
-	m_vTarget = _Target;
-}
-
-sf::Vector2f Dwarf::GetTarget() const
-{
-	return m_vTarget;
+	return m_oSteering;
 }
 
 void Dwarf::SetStamina(float _Stamina)

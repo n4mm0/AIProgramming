@@ -21,7 +21,7 @@ public:
 	void SetNeighbors(std::vector<Actor*> nNeighbors) { m_neighbors = nNeighbors; }
 	void SetObstacles(std::vector<Place*> nObstacles) { m_obstacles = nObstacles; }
 
-	
+	//Honestly, I'd collapse these two functions, Calculate() is kinda useless
 	sf::Vector2f GetForce()const { return m_steering; }
 
 	void Calculate();
@@ -69,6 +69,7 @@ public:
 private:
 	
 	Actor*				m_Actor;
+	Actor*				m_oTarget;
 
 	std::vector<Actor*>	m_neighbors;
 	std::vector<Place*>	m_obstacles;

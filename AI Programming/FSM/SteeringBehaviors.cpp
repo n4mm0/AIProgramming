@@ -1,9 +1,12 @@
 #include "SteeringBehaviors.h"
 #include "Actor.h"
 
-SteeringBehaviors::SteeringBehaviors(Actor* bp)
+SteeringBehaviors::SteeringBehaviors(Actor* bp) 
+	: m_Actor(bp)
+	, m_oTarget(nullptr)
+	, m_iFlags(0)
 {
-	m_Actor = bp; //Is m_Actor the owner of the behavior or the Actor to pursuit/evade?
+	//m_Actor = bp; //Is m_Actor the owner of the behavior or the Actor to pursuit/evade?
 	//Is there more stuff to initialize?
 }
 
@@ -21,12 +24,20 @@ void SteeringBehaviors::SetTarget(const sf::Vector2f target)
 void SteeringBehaviors::SetEvader(Actor* evader)
 {
 	//Where am I supposed to save the evader?? m_Actor?
+	m_oTarget = evader;
 }
 
 void SteeringBehaviors::Calculate()
 {
 	m_steering = sf::Vector2f(0.0f, 0.0f);
 	SumForces();
+	float length = sqrt(m_steering.x*m_steering.x + m_steering.y*m_steering.y);
+	if (length != 0)
+	{
+		m_steering.x /= length;
+		m_steering.y /= length;
+	}
+	m_steering *= 0.1f * m_Actor->GetVelocity();
 }
 
 void SteeringBehaviors::SumForces()
@@ -35,8 +46,8 @@ void SteeringBehaviors::SumForces()
 	if (SeekIsOn())					m_steering += Seek(m_target);
 	if (FleeIsOn())					m_steering += Flee(m_target);
 	if (ArriveIsOn())				m_steering += Arrive(m_target);
-	if (PursuitIsOn())				m_steering += Pursuit(m_Actor); //wtf do you want
-	if (EvadeIsOn())				m_steering += Evade(m_Actor); //wtf do you want
+	if (PursuitIsOn())				m_steering += Pursuit(m_oTarget); //wtf do you want
+	if (EvadeIsOn())				m_steering += Evade(m_oTarget); //wtf do you want
 	if (WanderIsOn())				m_steering += Wander();
 	if (ObstacleAvoidanceIsOn())	m_steering += ObstacleAvoidance();
 	if (WallAvoidanceIsOn())		m_steering += WallAvoidance(m_target);
@@ -50,14 +61,14 @@ void SteeringBehaviors::SumForces()
 
 sf::Vector2f SteeringBehaviors::Seek(const sf::Vector2f& target)
 {
-	//return target - m_Actor->GetPosition();
+	return target - m_Actor->GetPosition();
 	/*
 	** We need to consider actor max velocity and apply it? In order to make it move slower, and not
 	** teleport to the target..
 	** Also we mentioned something about actor's turn rate at lesson.. Can we consider it 180 degrees
 	** (aka instant) for now?
 	*/
-	return sf::Vector2f(0.0f, 0.0f);
+	//return sf::Vector2f(0.0f, 0.0f);
 }
 
 sf::Vector2f SteeringBehaviors::Flee(const sf::Vector2f& target)

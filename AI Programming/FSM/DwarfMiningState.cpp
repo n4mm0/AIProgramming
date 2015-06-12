@@ -32,7 +32,7 @@ void DwarfMiningState::OnUpdate(Dwarf* _Owner)
 	}
 	else
 	{
-		_Owner->SetTarget(GameConst::HOME_POSITION);
+		//_Owner->SetTarget(GameConst::HOME_POSITION);
 		_Owner->ChangeState(DwarfWalkState::GetInstance());
 	}
 }

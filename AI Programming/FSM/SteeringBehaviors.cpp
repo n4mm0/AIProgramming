@@ -130,7 +130,26 @@ sf::Vector2f SteeringBehaviors::Interpose(const sf::Vector2f& target)
 sf::Vector2f SteeringBehaviors::Separation(const std::vector<Actor*>& neighbors)
 {
 	//To-do
-	return sf::Vector2f(0.0f, 0.0f);
+	//return sf::Vector2f(0.0f, 0.0f);
+
+	sf::Vector2f vRes, vTemp;
+	float fMagnitude;
+	std::vector<Actor*>::const_iterator vIter = neighbors.cbegin();
+	for (; vIter != neighbors.cend(); ++vIter)
+	{
+		vTemp = m_Actor->GetPosition() - (*vIter)->GetPosition();
+		fMagnitude = sqrt(vTemp.x*vTemp.x + vTemp.y*vTemp.y);
+		if (fMagnitude != 0)
+		{
+			vTemp.x = vTemp.x / fMagnitude;
+			vTemp.y = vTemp.y / fMagnitude;
+		}
+		float radius;	// actor member
+		float fProportion = 1.f - (fMagnitude / radius);
+		vRes += vTemp * fProportion;
+	}
+
+	return vRes;
 }
 sf::Vector2f SteeringBehaviors::Cohesion(const std::vector<Actor*>& neighbors)
 {

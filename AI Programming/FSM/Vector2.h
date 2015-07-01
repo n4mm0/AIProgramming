@@ -1,5 +1,6 @@
 #pragma once
 #include <math.h>
+#include "SFML\System\Vector2.hpp"
 
 /*
 	Bidimensional Vector and some util methods.
@@ -40,6 +41,15 @@ public:
 		y -= other.y;
 
 		return *this;
+	}
+
+	inline Vector2 operator-() const
+	{
+		Vector2 temp;
+		temp.x = -x;
+		temp.y = -y;
+
+		return temp;
 	}
 
 	inline Vector2 operator*=(const Vector2& other)
@@ -90,6 +100,11 @@ public:
 	{
 		Vector2 temp(x, y);
 		temp.Normalize();
+		return temp;
+	}
+	sf::Vector2f GetSfVec()
+	{
+		sf::Vector2f temp(x, y);
 		return temp;
 	}
 

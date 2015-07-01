@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SFML\System\Vector2.hpp"
+#include "Vector2.h"
 
 class Actor
 {
@@ -16,12 +17,12 @@ public:
 	{
 	};
 
-	void SetPosition(sf::Vector2f _newPosition)
+	void SetPosition(/*sf::Vector2f*/ Vector2 _newPosition)
 	{
 		m_vPosition = _newPosition;
 	}
 
-	sf::Vector2f GetPosition()
+	/*sf::Vector2f*/ Vector2 GetPosition()
 	{
 		return m_vPosition;
 	}
@@ -43,5 +44,6 @@ public:
 	
 protected:
 	float			m_fVelocity, m_fMaxVelocity;
-	sf::Vector2f	m_vPosition;
+	//sf::Vector2f	m_vPosition;
+	Vector2			m_vPosition;
 };

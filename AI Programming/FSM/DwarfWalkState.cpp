@@ -37,7 +37,7 @@ void DwarfWalkState::OnEnter(Dwarf* _Owner)
 
 void DwarfWalkState::OnUpdate(Dwarf* _Owner)
 {
-	sf::Vector2f _target = _Owner->GetSteeringBehaviors()->GetTarget();
+	/*sf::Vector2f*/ Vector2 _target = _Owner->GetSteeringBehaviors()->GetTarget();
 	float distance = powf(_Owner->GetPosition().x - _target.x, 2) + powf(_Owner->GetPosition().y - _target.y, 2);
 	distance = sqrtf(distance);
 

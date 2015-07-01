@@ -13,7 +13,7 @@ int main(void)
 	sf::Texture tDwarf;
 	tDwarf.loadFromFile("assets/dwarf.png");
 	myDwarf.SetupSprite(tDwarf, 22, 38);
-	myDwarf.GetSprite()->setOrigin(GameConst::VEC2_ZERO);
+	myDwarf.GetSprite()->setOrigin(GameConst::SFVEC2_ZERO);
 	
 	unsigned int animarray[] = { 0, 1, 0, 2};
 	myDwarf.GetSprite()->addAnim("walkDown", animarray, 4, false);

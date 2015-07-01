@@ -10,7 +10,8 @@ Dwarf::Dwarf() : m_fStamina(0.0f), m_iBackpackSize(0), m_iTimer(0), m_oSprite(nu
 	m_iBackpackCapacity = GameConst::BACKPACK_CAPACITY;
 	m_oFSM = new FiniteStateMachine<Dwarf>(this, DwarfGlobalState::GetInstance());
 	m_oSteering = new SteeringBehaviors(this);
-	m_fVelocity = 2.0f; //hack, sarebbe meglio come parametro
+	//m_fVelocity = 2.0f;		//hack, sarebbe meglio come parametro
+	m_fMaxVelocity = 5.0f;	//hack, sarebbe meglio come parametro
 }
 
 Dwarf::~Dwarf()
@@ -25,7 +26,8 @@ Dwarf::Dwarf(float _MaxStamina, float _MinStamina, int _BackpackCapacity) : m_fS
 	m_iBackpackCapacity = _BackpackCapacity;
 	m_oFSM = new FiniteStateMachine<Dwarf>(this, DwarfGlobalState::GetInstance());
 	m_oSteering = new SteeringBehaviors(this);
-	m_fVelocity = 2.0f; //hack, sarebbe meglio come parametro
+	//m_fVelocity = 2.0f;		//hack, sarebbe meglio come parametro
+	m_fMaxVelocity = 5.0f;	//hack, sarebbe meglio come parametro
 }
 
 void Dwarf::Init()
@@ -45,8 +47,8 @@ void Dwarf::Update(float _DeltaTime)
 	Actor::Update(_DeltaTime);
 	m_oFSM->Update();
 
-	m_vVelocity.x = 0;  //Blergh
-	m_vVelocity.y = 0;
+	/*m_vVelocity.x = 0;  //Blergh
+	m_vVelocity.y = 0;*/
 	m_oSteering->Calculate();
 	m_vVelocity = m_oSteering->GetForce();
 	m_vPosition += m_vVelocity;
@@ -70,7 +72,7 @@ void Dwarf::Update(float _DeltaTime)
 	//Time to update the sprite
 	if (m_oSprite != nullptr)
 	{
-		m_oSprite->Update(m_vPosition);
+		m_oSprite->Update(m_vPosition.GetSfVec());
 	}
 }
 

@@ -73,20 +73,25 @@ void SteeringBehaviors::SumForces()
 {
 	/*return target - m_Actor->GetPosition();*/
 
-	Vector2 temp = target - m_Actor->GetPosition();
-	temp *= 0.1f;
-	temp.Normalize();
-	if (m_Actor->GetVelocity() == Vector2::ZERO)
-	{
-		//temp *= 0.1f;
-		temp.Truncate(0.1f);
-	}
-	else
-	{
-		//temp *= 0.1f * m_Actor->GetVelocity();
-		temp.Truncate(0.1f * m_Actor->GetVelocity().Length());
-	}
-	return temp;
+	//Vector2 temp = target - m_Actor->GetPosition();
+	//temp *= 0.1f;
+	//temp.Normalize();
+	//if (m_Actor->GetVelocity() == Vector2::ZERO)
+	//{
+	//	//temp *= 0.1f;
+	//	temp.Truncate(0.1f);
+	//}
+	//else
+	//{
+	//	//temp *= 0.1f * m_Actor->GetVelocity();
+	//	temp.Truncate(0.1f * m_Actor->GetVelocity().Length());
+	//}
+	//return temp;
+
+	Vector2 steering = target - m_Actor->GetPosition();
+	steering = steering.NormalizeCopy() * m_Actor->GetMaxVelocity();
+	steering = steering - m_Actor->GetVelocity();
+	return steering;
 
 	/*
 	** We need to consider actor max velocity and apply it? In order to make it move slower, and not

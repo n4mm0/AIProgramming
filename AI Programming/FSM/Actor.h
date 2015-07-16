@@ -27,14 +27,14 @@ public:
 		return m_vPosition;
 	}
 	
-	void SetVelocity(float _Velo)
+	void SetVelocity(Vector2 _Velo)
 	{
-		m_fVelocity = _Velo;
+		m_vVelocity = _Velo;
 	}
 	
-	float GetVelocity() const
+	Vector2 GetVelocity() const
 	{
-		return m_fVelocity;
+		return m_vVelocity;
 	}
 	
 	float GetMaxVelocity() const
@@ -43,7 +43,7 @@ public:
 	}
 	
 protected:
-	float			m_fVelocity, m_fMaxVelocity;
+	float			/*m_fVelocity*/ m_fMaxVelocity;
 	//sf::Vector2f	m_vPosition;
-	Vector2			m_vPosition;
+	Vector2			m_vPosition, m_vVelocity;
 };

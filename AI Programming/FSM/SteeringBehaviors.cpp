@@ -76,7 +76,7 @@ void SteeringBehaviors::SumForces()
 	Vector2 temp = target - m_Actor->GetPosition();
 	temp *= 0.1f;
 	temp.Normalize();
-	if (m_Actor->GetVelocity() == 0.0f)
+	if (m_Actor->GetVelocity() == Vector2::ZERO)
 	{
 		//temp *= 0.1f;
 		temp.Truncate(0.1f);
@@ -84,7 +84,7 @@ void SteeringBehaviors::SumForces()
 	else
 	{
 		//temp *= 0.1f * m_Actor->GetVelocity();
-		temp.Truncate(0.1f * m_Actor->GetVelocity());
+		temp.Truncate(0.1f * m_Actor->GetVelocity().Length());
 	}
 	return temp;
 

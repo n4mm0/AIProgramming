@@ -41,7 +41,7 @@ private:
 	AnimatedSprite*				m_oSprite;
 	SteeringBehaviors*			m_oSteering;
 	//sf::Vector2f				m_vVelocity;
-	Vector2						m_vVelocity;
+	//Vector2					m_vVelocity;
 	/*sf::Vector2f				m_vPosition;
 	sf::Vector2f				m_vMoveDirection;
 	sf::Vector2f				m_vTarget;*/

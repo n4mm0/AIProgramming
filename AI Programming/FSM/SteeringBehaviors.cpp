@@ -111,12 +111,21 @@ void SteeringBehaviors::SumForces()
 
 /*sf::Vector2f*/ Vector2 SteeringBehaviors::Arrive(const /*sf::Vector2f&*/ Vector2& target)
 {
-	//Can't remember this one...
-	/*
-	** Seek the target but adjust your velocity while you are approaching it
-	** in order to arrive without "crashing" on it
-	*/
-	return /*sf::Vector2f(0.0f, 0.0f)*/ Vector2::ZERO;
+	Vector2 steering = target - m_Actor->GetPosition();
+	float distance = steering.Length();
+	float slowingRadius = 25.0f;
+
+	if (distance < slowingRadius) //Slowing radius
+	{
+		steering = steering.NormalizeCopy() * m_Actor->GetMaxVelocity() * (distance / slowingRadius);
+	}
+	else
+	{
+		steering = steering.NormalizeCopy() * m_Actor->GetMaxVelocity();
+	}
+
+	steering = steering - m_Actor->GetVelocity();
+	return steering;
 }
 
 /*sf::Vector2f*/ Vector2 SteeringBehaviors::Pursuit(const Actor* target)

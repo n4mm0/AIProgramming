@@ -62,9 +62,13 @@ void Dwarf::Update(float _DeltaTime)
 	{
 		m_oSprite->playAnim("walkUp");
 	}
-	else
+	else if (m_vVelocity.y > 0)
 	{
 		m_oSprite->playAnim("walkDown");
+	}
+	else
+	{
+		m_oSprite->playAnim("idle");
 	}
 
 	////We're done with the forces of this frame

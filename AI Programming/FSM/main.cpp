@@ -26,7 +26,11 @@ int main(void)
 	animarray[3] = 5;
 	myDwarf.GetSprite()->addAnim("walkUp", animarray, 4, false);
 
+	unsigned int idleAnim[] = { 0 };
+	myDwarf.GetSprite()->addAnim("idle", idleAnim, 1, false);
+
 	myDwarf.GetSprite()->playAnim("walkDown");
+
 
 	sf::Texture tBackground;
 	tBackground.loadFromFile("assets/background.png");

@@ -26,12 +26,14 @@ void DwarfWalkState::OnEnter(Dwarf* _Owner)
 	if (_Owner->GetFSM()->GetPreviousState() == DwarfMiningState::GetInstance() || _Owner->GetStamina() <= _Owner->GetMinStamina())
 	{
 		_Owner->GetSteeringBehaviors()->SetTarget(GameConst::HOME_POSITION);
-		_Owner->GetSteeringBehaviors()->SeekOn();
+		//_Owner->GetSteeringBehaviors()->SeekOn();
+		_Owner->GetSteeringBehaviors()->ArriveOn();
 	}
 	else if (_Owner->GetFSM()->GetPreviousState() == DwarfIdleState::GetInstance())
 	{
 		_Owner->GetSteeringBehaviors()->SetTarget(GameConst::MINES_POSITION);
-		_Owner->GetSteeringBehaviors()->SeekOn();
+		//_Owner->GetSteeringBehaviors()->SeekOn();
+		_Owner->GetSteeringBehaviors()->ArriveOn();
 	}
 }
 
@@ -43,11 +45,11 @@ void DwarfWalkState::OnUpdate(Dwarf* _Owner)
 
 	//Visto la posizione del nano non arriverà mai ad essere esattamente uguale a quella del target,
 	//Ho pensato di calcolare la distanza fra i due punti, se è minore di un certo limite, allora è arrivato!
-	if (_target == GameConst::MINES_POSITION && distance <2.0f)
+	if (_target == GameConst::MINES_POSITION && distance < 1.0f)
 	{
 		_Owner->ChangeState(DwarfMiningState::GetInstance());
 	}
-	else if (_target == GameConst::HOME_POSITION && distance <2.0f)
+	else if (_target == GameConst::HOME_POSITION && distance < 1.0f)
 	{
 		_Owner->ChangeState(DwarfIdleState::GetInstance());
 	}
@@ -68,6 +70,7 @@ void DwarfWalkState::OnUpdate(Dwarf* _Owner)
 
 void DwarfWalkState::OnExit(Dwarf* _Owner)
 {
-	_Owner->SetVelocity(Vector2::ZERO);
-	_Owner->GetSteeringBehaviors()->SeekOff();
+	_Owner->SetVelocity(Vector2::ZERO); //Not necessary but otherwise there's always some very small velocity left.
+	//_Owner->GetSteeringBehaviors()->SeekOff();
+	_Owner->GetSteeringBehaviors()->ArriveOff();
 }

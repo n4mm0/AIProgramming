@@ -1,4 +1,5 @@
 #include "SteeringBehaviors.h"
+
 #include "Actor.h"
 
 SteeringBehaviors::SteeringBehaviors(Actor* bp) 
@@ -31,6 +32,7 @@ void SteeringBehaviors::Calculate()
 {
 	m_steering = sf::Vector2f(0.0f, 0.0f);
 	SumForces();
+	//Questo calcolo và fatto nel calcolo della forza, non qua!
 	float length = sqrt(m_steering.x*m_steering.x + m_steering.y*m_steering.y);
 	if (length != 0)
 	{

@@ -44,10 +44,12 @@ void SteeringBehaviors::Calculate()
 	/*m_steering.Normalize();
 	m_steering *= 0.1f * m_Actor->GetVelocity();*/
 
-	if (m_steering.Length() > m_Actor->GetMaxVelocity())
+	/*if (m_steering.Length() > m_Actor->GetMaxVelocity())
 	{
 		m_steering.Truncate(m_Actor->GetMaxVelocity());
-	}
+	}*/
+
+	m_steering.Truncate(m_Actor->GetMaxForce());
 }
 
 void SteeringBehaviors::SumForces()

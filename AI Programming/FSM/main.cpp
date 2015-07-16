@@ -6,7 +6,10 @@ int main(void)
 {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Dwarf Job");
 
-	Dwarf myDwarf(50.0f, 1.0f, 100);
+	/* Assuming we are thinking in m/s
+	** Dwarf max speed -> 1.5 m/s (approx 5.5km/h)
+	*/
+	Dwarf myDwarf(50.0f, 1.0f, 1.5f, .5f, 100);
 	myDwarf.Init();
 	myDwarf.SetPosition(GameConst::HOME_POSITION);
 

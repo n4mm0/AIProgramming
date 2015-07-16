@@ -8,12 +8,7 @@ class Actor
 public:
 	virtual ~Actor(){}
 
-	//virtual void Init(float _MaxVelo, float _MaxForce)
-	//{
-	//	m_fMaxVelocity = _MaxVelo;
-	//	m_fMaxForce = _MaxForce;
-	//};
-	// Makes no sense to Init maxVelo and maxForce when u setup them in child ctor!
+	// Empty but eventually useful in the future
 	virtual void Init()
 	{
 
@@ -23,12 +18,12 @@ public:
 	{
 	};
 
-	void SetPosition(/*sf::Vector2f*/ Vector2 _newPosition)
+	void SetPosition(Vector2 _newPosition)
 	{
 		m_vPosition = _newPosition;
 	}
 
-	/*sf::Vector2f*/ Vector2 GetPosition()
+	Vector2 GetPosition()
 	{
 		return m_vPosition;
 	}
@@ -54,7 +49,6 @@ public:
 	}
 	
 protected:
-	float			/*m_fVelocity*/ m_fMaxVelocity, m_fMaxForce;
-	//sf::Vector2f	m_vPosition;
 	Vector2			m_vPosition, m_vVelocity;
+	float			m_fMaxVelocity, m_fMaxForce;
 };

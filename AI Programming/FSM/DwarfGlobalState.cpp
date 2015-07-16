@@ -22,9 +22,6 @@ void DwarfGlobalState::OnUpdate(Dwarf* _Owner)
 {
 	if (_Owner->GetStamina() <= _Owner->GetMinStamina() && _Owner->GetSteeringBehaviors()->GetTarget() != GameConst::HOME_POSITION)
 	{
-		//_Owner->SetTarget(GameConst::HOME_POSITION);
-		//_Owner->GetSteeringBehaviors()->SetTarget(GameConst::HOME_POSITION);
-		//_Owner->GetSteeringBehaviors()->SeekIsOn();
 		_Owner->ChangeState(DwarfWalkState::GetInstance());
 	}
 }

@@ -7,8 +7,7 @@ SteeringBehaviors::SteeringBehaviors(Actor* bp)
 	, m_oTarget(nullptr)
 	, m_iFlags(0)
 {
-	//m_Actor = bp; //Is m_Actor the owner of the behavior or the Actor to pursuit/evade?
-	//Is there more stuff to initialize?
+
 }
 
 SteeringBehaviors::~SteeringBehaviors()
@@ -17,99 +16,66 @@ SteeringBehaviors::~SteeringBehaviors()
 	m_obstacles.clear();
 }
 
-void SteeringBehaviors::SetTarget(const /*sf::Vector2f*/ Vector2 target)
+void SteeringBehaviors::SetTarget(const Vector2 target)
 {
 	m_target = target;
 }
 
 void SteeringBehaviors::SetEvader(Actor* evader)
 {
-	//Where am I supposed to save the evader?? m_Actor?
 	m_oTarget = evader;
 }
 
 void SteeringBehaviors::Calculate()
 {
-	m_steering = /*sf::Vector2f(0.0f, 0.0f)*/ Vector2::ZERO;
+	m_steering = Vector2::ZERO;
 	SumForces();
 	//Questo calcolo và fatto nel calcolo della forza, non qua!
-	float length = sqrt(m_steering.x*m_steering.x + m_steering.y*m_steering.y);
-	/*float length = sqrt(m_steering.x*m_steering.x + m_steering.y*m_steering.y);
-	if (length != 0)
-	{
-		m_steering.x /= length;
-		m_steering.y /= length;
-	}*/
-	
-	/*m_steering.Normalize();
-	m_steering *= 0.1f * m_Actor->GetVelocity();*/
-
-	/*if (m_steering.Length() > m_Actor->GetMaxVelocity())
-	{
-		m_steering.Truncate(m_Actor->GetMaxVelocity());
-	}*/
+	//float length = sqrt(m_steering.x*m_steering.x + m_steering.y*m_steering.y); <--- Do we still need this? :|
 
 	m_steering.Truncate(m_Actor->GetMaxForce());
 }
 
 void SteeringBehaviors::SumForces()
 {
-	//Why do these functions require data that the class already knows? Like target or its neighbors...
+	// Single behaviors
 	if (SeekIsOn())					m_steering += Seek(m_target);
 	if (FleeIsOn())					m_steering += Flee(m_target);
 	if (ArriveIsOn())				m_steering += Arrive(m_target);
-	if (PursuitIsOn())				m_steering += Pursuit(m_oTarget); //wtf do you want
-	if (EvadeIsOn())				m_steering += Evade(m_oTarget); //wtf do you want
+	if (PursuitIsOn())				m_steering += Pursuit(m_oTarget); 
+	if (EvadeIsOn())				m_steering += Evade(m_oTarget); 
 	if (WanderIsOn())				m_steering += Wander();
 	if (ObstacleAvoidanceIsOn())	m_steering += ObstacleAvoidance();
 	if (WallAvoidanceIsOn())		m_steering += WallAvoidance(m_target);
 	if (InterposeIsOn())			m_steering += Interpose(m_target);
 	
-	//Group
+	// Group behaviors
 	if (SeparationIsOn())			m_steering += Separation(m_neighbors);
 	if (CohesionIsOn())				m_steering += Cohesion(m_neighbors);
 	if (AlignmentIsOn())			m_steering += Alignment(m_target);
 }
 
-/*sf::Vector2f*/ Vector2 SteeringBehaviors::Seek(const /*sf::Vector2f&*/ Vector2& target)
+Vector2 SteeringBehaviors::Seek(const Vector2& target)
 {
-	/*return target - m_Actor->GetPosition();*/
-
-	//Vector2 temp = target - m_Actor->GetPosition();
-	//temp *= 0.1f;
-	//temp.Normalize();
-	//if (m_Actor->GetVelocity() == Vector2::ZERO)
-	//{
-	//	//temp *= 0.1f;
-	//	temp.Truncate(0.1f);
-	//}
-	//else
-	//{
-	//	//temp *= 0.1f * m_Actor->GetVelocity();
-	//	temp.Truncate(0.1f * m_Actor->GetVelocity().Length());
-	//}
-	//return temp;
-
-	Vector2 steering = target - m_Actor->GetPosition();
-	steering = steering.NormalizeCopy() * m_Actor->GetMaxVelocity();
-	steering = steering - m_Actor->GetVelocity();
-	return steering;
-
 	/*
 	** We need to consider actor max velocity and apply it? In order to make it move slower, and not
 	** teleport to the target..
 	** Also we mentioned something about actor's turn rate at lesson.. Can we consider it 180 degrees
 	** (aka instant) for now?
 	*/
-	//return sf::Vector2f(0.0f, 0.0f);
+
+	Vector2 steering = target - m_Actor->GetPosition();
+	steering = steering.NormalizeCopy() * m_Actor->GetMaxVelocity();
+	steering = steering - m_Actor->GetVelocity();
+	return steering;
 }
 
-/*sf::Vector2f*/ Vector2 SteeringBehaviors::Flee(const /*sf::Vector2f&*/ Vector2& target)
+Vector2 SteeringBehaviors::Flee(const Vector2& target)
 {
-	return -Seek(target); //Is it ok?
+	return -Seek(target);
 }
 
-/*sf::Vector2f*/ Vector2 SteeringBehaviors::Arrive(const /*sf::Vector2f&*/ Vector2& target)
+Vector2 SteeringBehaviors::Arrive(const Vector2& target)
 {
 	Vector2 steering = target - m_Actor->GetPosition();
 	float distance = steering.Length();
@@ -128,7 +94,7 @@ void SteeringBehaviors::SumForces()
 	return steering;
 }
 
-/*sf::Vector2f*/ Vector2 SteeringBehaviors::Pursuit(const Actor* target)
+Vector2 SteeringBehaviors::Pursuit(const Actor* target)
 {
 	//From my notes...
 	/*
@@ -137,71 +103,62 @@ void SteeringBehaviors::SumForces()
 	** d = target->GetVelocity() * d;
 	** return Seek(d);
 	*/
-	return /*sf::Vector2f(0.0f, 0.0f)*/ Vector2::ZERO;
+	return Vector2::ZERO;
 }
 
-/*sf::Vector2f*/ Vector2 SteeringBehaviors::Evade(const Actor* target)
+Vector2 SteeringBehaviors::Evade(const Actor* target)
 {
 	return -Pursuit(target);
 }
 
-/*sf::Vector2f*/ Vector2 SteeringBehaviors::Wander()
+Vector2 SteeringBehaviors::Wander()
 {
 	//To-do
-	return /*sf::Vector2f(0.0f, 0.0f)*/ Vector2::ZERO;
+	return Vector2::ZERO;
 }
 
-/*sf::Vector2f*/ Vector2 SteeringBehaviors::ObstacleAvoidance()
+Vector2 SteeringBehaviors::ObstacleAvoidance()
 {
 	//To-do
-	return /*sf::Vector2f(0.0f, 0.0f)*/ Vector2::ZERO;
+	return Vector2::ZERO;
 }
 
-/*sf::Vector2f*/ Vector2 SteeringBehaviors::WallAvoidance(const /*sf::Vector2f&*/ Vector2& target)
+Vector2 SteeringBehaviors::WallAvoidance(const Vector2& target)
 {
 	//To-do
-	return /*sf::Vector2f(0.0f, 0.0f)*/ Vector2::ZERO;
+	return Vector2::ZERO;
 }
 
-/*sf::Vector2f*/ Vector2 SteeringBehaviors::Interpose(const /*sf::Vector2f&*/ Vector2& target)
+Vector2 SteeringBehaviors::Interpose(const Vector2& target)
 {
 	//To-do
-	return /*sf::Vector2f(0.0f, 0.0f)*/ Vector2::ZERO;
+	return Vector2::ZERO;
 }
 
-/*sf::Vector2f*/ Vector2 SteeringBehaviors::Separation(const std::vector<Actor*>& neighbors)
+Vector2 SteeringBehaviors::Separation(const std::vector<Actor*>& neighbors)
 {
-	//To-do
-	//return sf::Vector2f(0.0f, 0.0f);
-
-	/*sf::Vector2f*/ Vector2 vRes, vTemp;
+	Vector2 vRes, vTemp;
 	float fMagnitude;
 	std::vector<Actor*>::const_iterator vIter = neighbors.cbegin();
 	for (; vIter != neighbors.cend(); ++vIter)
 	{
 		vTemp = (m_Actor->GetPosition() - (*vIter)->GetPosition());
-		/*fMagnitude = sqrt(vTemp.x*vTemp.x + vTemp.y*vTemp.y);
-		if (fMagnitude != 0)
-		{
-			vTemp.x = vTemp.x / fMagnitude;
-			vTemp.y = vTemp.y / fMagnitude;
-		}*/
 		vTemp.Normalize();
 		float radius = 1;	// actor member
-		float fProportion = 1.f - (/*fMagnitude*/ vTemp.Length() / radius);
+		float fProportion = 1.f - (vTemp.Length() / radius);
 		vRes += vTemp * fProportion;
 	}
 
 	return vRes;
 }
-/*sf::Vector2f*/ Vector2 SteeringBehaviors::Cohesion(const std::vector<Actor*>& neighbors)
+Vector2 SteeringBehaviors::Cohesion(const std::vector<Actor*>& neighbors)
 {
 	//To-do
-	return /*sf::Vector2f(0.0f, 0.0f)*/ Vector2::ZERO;
+	return Vector2::ZERO;
 }
 
-/*sf::Vector2f*/ Vector2 SteeringBehaviors::Alignment(const /*sf::Vector2f&*/ Vector2& target)
+Vector2 SteeringBehaviors::Alignment(const Vector2& target)
 {
 	//To-do
-	return /*sf::Vector2f(0.0f, 0.0f)*/ Vector2::ZERO;
+	return Vector2::ZERO;
 }

@@ -22,7 +22,6 @@ DwarfIdleState::~DwarfIdleState()
 void DwarfIdleState::OnEnter(Dwarf* _Owner)
 {
 	_Owner->SetStamina(_Owner->GetMinStamina() + 0.5f);
-	//_Owner->SetTarget(GameConst::VEC2_ZERO);
 	_Owner->EmptyBackPack();
 }
 
@@ -34,7 +33,6 @@ void DwarfIdleState::OnUpdate(Dwarf* _Owner)
 	}
 	else
 	{
-		//_Owner->SetTarget(GameConst::MINES_POSITION);
 		_Owner->ChangeState(DwarfWalkState::GetInstance());
 	}
 }

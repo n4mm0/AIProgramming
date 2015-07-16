@@ -46,8 +46,6 @@ void Dwarf::Update(float _DeltaTime)
 	Actor::Update(_DeltaTime);
 	m_oFSM->Update();
 
-	/*m_vVelocity.x = 0;  //Blergh
-	m_vVelocity.y = 0;*/
 	m_oSteering->Calculate();
 	//m_vVelocity = m_oSteering->GetForce();
 
@@ -71,8 +69,8 @@ void Dwarf::Update(float _DeltaTime)
 		m_oSprite->playAnim("idle");
 	}
 
-	////We're done with the forces of this frame
-	//m_vMoveDirection = sf::Vector2f(0.0f, 0.0f);
+	// We're done with the forces of this frame
+	// m_vMoveDirection = sf::Vector2f(0.0f, 0.0f);
 
 	//Time to update the sprite
 	if (m_oSprite != nullptr)
@@ -85,32 +83,6 @@ AnimatedSprite* Dwarf::GetSprite()
 {
 	return m_oSprite;
 }
-
-//void Dwarf::SetPosition(const sf::Vector2f& _position)
-//{
-//	m_vPosition.x = _position.x;
-//	m_vPosition.y = _position.y;
-//}
-//
-//const sf::Vector2f& Dwarf::GetPosition()
-//{
-//	return m_vPosition;
-//}
-
-//void Dwarf::AddForce(const sf::Vector2f& _vector)
-//{
-//	m_vMoveDirection += _vector;
-//}
-
-//void Dwarf::SetTarget(sf::Vector2f _Target)
-//{
-//	m_vTarget = _Target;
-//}
-//
-//sf::Vector2f Dwarf::GetTarget() const
-//{
-//	return m_vTarget;
-//}
 
 const FiniteStateMachine<Dwarf>* const Dwarf::GetFSM() const
 {

@@ -14,16 +14,16 @@ public:
 	SteeringBehaviors(Actor* bp);
 	~SteeringBehaviors();
 
-	/*sf::Vector2f*/ Vector2 GetTarget()const{ return m_target; }
+	Vector2 GetTarget()const{ return m_target; }
 	
-	void SetTarget(const /*sf::Vector2f*/ Vector2 target);
+	void SetTarget(const Vector2 target);
 	void SetEvader(Actor* evader);
 
 	void SetNeighbors(std::vector<Actor*> nNeighbors) { m_neighbors = nNeighbors; }
 	void SetObstacles(std::vector<Place*> nObstacles) { m_obstacles = nObstacles; }
 
 	//Honestly, I'd collapse these two functions, Calculate() is kinda useless
-	/*sf::Vector2f*/ Vector2 GetForce()const { return m_steering; }
+	Vector2 GetForce()const { return m_steering; }
 
 	void Calculate();
 
@@ -75,8 +75,6 @@ private:
 	std::vector<Actor*>	m_neighbors;
 	std::vector<Place*>	m_obstacles;
 
-	/*sf::Vector2f		m_steering;
-	sf::Vector2f		m_target;*/
 	Vector2				m_steering;
 	Vector2				m_target;
 	
@@ -106,19 +104,20 @@ private:
 
 	void SumForces();
 
-	/*sf::Vector2f*/ Vector2 Seek(const /*sf::Vector2f&*/ Vector2& target);
-	/*sf::Vector2f*/ Vector2 Flee(const /*sf::Vector2f&*/ Vector2& target);
-	/*sf::Vector2f*/ Vector2 Arrive(const /*sf::Vector2f&*/ Vector2& target);
-	/*sf::Vector2f*/ Vector2 Pursuit(const Actor* target);
-	/*sf::Vector2f*/ Vector2 Evade(const Actor* target);
-	/*sf::Vector2f*/ Vector2 Wander();
-	/*sf::Vector2f*/ Vector2 ObstacleAvoidance();
-	/*sf::Vector2f*/ Vector2 WallAvoidance(const /*sf::Vector2f&*/ Vector2& target);
-	/*sf::Vector2f*/ Vector2 Interpose(const /*sf::Vector2f&*/ Vector2& target);
+	// Single behaviors
+	Vector2 Seek(const Vector2& target);
+	Vector2 Flee(const Vector2& target);
+	Vector2 Arrive(const Vector2& target);
+	Vector2 Pursuit(const Actor* target);
+	Vector2 Evade(const Actor* target);
+	Vector2 Wander();
+	Vector2 ObstacleAvoidance();
+	Vector2 WallAvoidance(const Vector2& target);
+	Vector2 Interpose(const Vector2& target);
 
-	//group
-	/*sf::Vector2f*/ Vector2 Separation(const std::vector<Actor*>& neighbors);
-	/*sf::Vector2f*/ Vector2 Cohesion(const std::vector<Actor*>& neighbors);
-	/*sf::Vector2f*/ Vector2 Alignment(const /*sf::Vector2f&*/ Vector2& target);
+	// Group behaviors
+	Vector2 Separation(const std::vector<Actor*>& neighbors);
+	Vector2 Cohesion(const std::vector<Actor*>& neighbors);
+	Vector2 Alignment(const Vector2& target);
 
 };

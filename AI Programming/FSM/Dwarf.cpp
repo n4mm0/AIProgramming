@@ -49,11 +49,13 @@ void Dwarf::Update(float _DeltaTime)
 	/*m_vVelocity.x = 0;  //Blergh
 	m_vVelocity.y = 0;*/
 	m_oSteering->Calculate();
-	m_vVelocity = m_oSteering->GetForce();
-	m_vPosition += m_vVelocity;
+	//m_vVelocity = m_oSteering->GetForce();
 
-	//Let's apply the force!
-	//m_vPosition += m_vMoveDirection;
+	Vector2 vSteering = m_vVelocity + m_oSteering->GetForce(); //velocity = truncate (velocity + steering , max_speed)
+	vSteering.Truncate(m_fMaxVelocity);
+	m_vVelocity = vSteering;
+
+	m_vPosition += m_vVelocity * _DeltaTime;
 
 	//Change animation based on moveDirection
 	if (m_vVelocity.y < 0)

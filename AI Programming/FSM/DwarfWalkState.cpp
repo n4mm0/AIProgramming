@@ -68,5 +68,6 @@ void DwarfWalkState::OnUpdate(Dwarf* _Owner)
 
 void DwarfWalkState::OnExit(Dwarf* _Owner)
 {
+	_Owner->SetVelocity(Vector2::ZERO);
 	_Owner->GetSteeringBehaviors()->SeekOff();
 }

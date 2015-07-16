@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Actors">
       <UniqueIdentifier>{09ee9a56-b5c0-4868-8311-9aa851df04b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{1f9a049f-4d0c-430d-b256-fd7fdd73df0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{89df75cd-41c3-43c8-8f40-09dd88be53cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FiniteStateMachine.h">
@@ -69,6 +75,9 @@
     <ClInclude Include="SteeringBehaviors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -97,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="SteeringBehaviors.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Source Files\Utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

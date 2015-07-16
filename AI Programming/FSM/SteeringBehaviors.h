@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SFML\System\Vector2.hpp"
+#include "Vector2.h"
 #include <vector>
 
 class Actor;
@@ -13,16 +14,16 @@ public:
 	SteeringBehaviors(Actor* bp);
 	~SteeringBehaviors();
 
-	sf::Vector2f GetTarget()const{ return m_target; }
+	/*sf::Vector2f*/ Vector2 GetTarget()const{ return m_target; }
 	
-	void SetTarget(const sf::Vector2f target);
+	void SetTarget(const /*sf::Vector2f*/ Vector2 target);
 	void SetEvader(Actor* evader);
 
 	void SetNeighbors(std::vector<Actor*> nNeighbors) { m_neighbors = nNeighbors; }
 	void SetObstacles(std::vector<Place*> nObstacles) { m_obstacles = nObstacles; }
 
 	//Honestly, I'd collapse these two functions, Calculate() is kinda useless
-	sf::Vector2f GetForce()const { return m_steering; }
+	/*sf::Vector2f*/ Vector2 GetForce()const { return m_steering; }
 
 	void Calculate();
 
@@ -74,8 +75,10 @@ private:
 	std::vector<Actor*>	m_neighbors;
 	std::vector<Place*>	m_obstacles;
 
-	sf::Vector2f		m_steering;
-	sf::Vector2f		m_target;
+	/*sf::Vector2f		m_steering;
+	sf::Vector2f		m_target;*/
+	Vector2				m_steering;
+	Vector2				m_target;
 	
 	float				m_thetaValue;
 
@@ -103,19 +106,19 @@ private:
 
 	void SumForces();
 
-	sf::Vector2f Seek(const sf::Vector2f& target);
-	sf::Vector2f Flee(const sf::Vector2f& target);
-	sf::Vector2f Arrive(const sf::Vector2f& target);
-	sf::Vector2f Pursuit(const Actor* target);
-	sf::Vector2f Evade(const Actor* target);
-	sf::Vector2f Wander();
-	sf::Vector2f ObstacleAvoidance();
-	sf::Vector2f WallAvoidance(const sf::Vector2f& target);
-	sf::Vector2f Interpose(const sf::Vector2f& target);
+	/*sf::Vector2f*/ Vector2 Seek(const /*sf::Vector2f&*/ Vector2& target);
+	/*sf::Vector2f*/ Vector2 Flee(const /*sf::Vector2f&*/ Vector2& target);
+	/*sf::Vector2f*/ Vector2 Arrive(const /*sf::Vector2f&*/ Vector2& target);
+	/*sf::Vector2f*/ Vector2 Pursuit(const Actor* target);
+	/*sf::Vector2f*/ Vector2 Evade(const Actor* target);
+	/*sf::Vector2f*/ Vector2 Wander();
+	/*sf::Vector2f*/ Vector2 ObstacleAvoidance();
+	/*sf::Vector2f*/ Vector2 WallAvoidance(const /*sf::Vector2f&*/ Vector2& target);
+	/*sf::Vector2f*/ Vector2 Interpose(const /*sf::Vector2f&*/ Vector2& target);
 
 	//group
-	sf::Vector2f Separation(const std::vector<Actor*>& neighbors);
-	sf::Vector2f Cohesion(const std::vector<Actor*>& neighbors);
-	sf::Vector2f Alignment(const sf::Vector2f& target);
+	/*sf::Vector2f*/ Vector2 Separation(const std::vector<Actor*>& neighbors);
+	/*sf::Vector2f*/ Vector2 Cohesion(const std::vector<Actor*>& neighbors);
+	/*sf::Vector2f*/ Vector2 Alignment(const /*sf::Vector2f&*/ Vector2& target);
 
 };

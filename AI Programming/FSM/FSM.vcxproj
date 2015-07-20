@@ -82,6 +82,7 @@
     <ClInclude Include="DwarfWalkState.h" />
     <ClInclude Include="SteeringBehaviors.h" />
     <ClInclude Include="Vector2.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimatedSprite.cpp" />
@@ -94,6 +95,7 @@
     <ClCompile Include="DwarfWalkState.cpp" />
     <ClCompile Include="SteeringBehaviors.cpp" />
     <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,6 +4,7 @@
 #include "AnimatedSprite.h"
 #include "Actor.h"
 #include "SteeringBehaviors.h"
+#include "SFML\Graphics.hpp"
 
 class Dwarf : public Actor
 {
@@ -14,6 +15,7 @@ public:
 
 	void Init();
 	void Update(float _DeltaTime);
+	void Draw(sf::RenderWindow* _window);
 	
 	void ChangeState(State<Dwarf>* _State);
 

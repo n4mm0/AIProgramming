@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SFML\System\Vector2.hpp"
+#include "SFML\Graphics.hpp"
 #include "Vector2.h"
 
 class Actor
@@ -18,6 +19,10 @@ public:
 	{
 	};
 
+	virtual void Draw(sf::RenderWindow* _window)
+	{ 
+	};
+	
 	void SetPosition(Vector2 _newPosition)
 	{
 		m_vPosition = _newPosition;

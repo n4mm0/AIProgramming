@@ -79,6 +79,16 @@ void Dwarf::Update(float _DeltaTime)
 	}
 }
 
+void Dwarf::Draw(sf::RenderWindow* _window)
+{
+	Actor::Draw(_window);
+
+	if (_window != nullptr)
+	{
+		_window->draw(*m_oSprite);
+	}
+}
+
 AnimatedSprite* Dwarf::GetSprite()
 {
 	return m_oSprite;

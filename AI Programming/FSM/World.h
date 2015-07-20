@@ -16,6 +16,7 @@ public:
 	~World();
 
 	const vecActors& GetActors();
+	const vecPlaces& GetPlaces();
 
 private:
 	World();
@@ -26,6 +27,7 @@ private:
 	vecPlaces m_vPlaces;
 
 	sf::Texture m_tDwarf;
+	sf::Texture m_tRock;
 
 	static World* m_oInstance;
 };

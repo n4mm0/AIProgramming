@@ -78,6 +78,8 @@
     <ClInclude Include="DwarfIdleState.h" />
     <ClInclude Include="DwarfMiningState.h" />
     <ClInclude Include="GameConst.h" />
+    <ClInclude Include="MathUtils.h" />
+    <ClInclude Include="Place.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="DwarfWalkState.h" />
     <ClInclude Include="SteeringBehaviors.h" />
@@ -93,6 +95,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="DwarfMiningState.cpp" />
     <ClCompile Include="DwarfWalkState.cpp" />
+    <ClCompile Include="Place.cpp" />
     <ClCompile Include="SteeringBehaviors.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="World.cpp" />

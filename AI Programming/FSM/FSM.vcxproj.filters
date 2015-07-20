@@ -37,6 +37,12 @@
     <Filter Include="Header Files\Utils">
       <UniqueIdentifier>{89df75cd-41c3-43c8-8f40-09dd88be53cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{ff40a0d6-f87d-4cfc-a06f-855370083ebc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{c46a4f29-998d-4518-aa43-c70d1b5a1426}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FiniteStateMachine.h">
@@ -53,12 +59,6 @@
     </ClInclude>
     <ClInclude Include="DwarfWalkState.h">
       <Filter>Header Files\States\Dwarf</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimatedSprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameConst.h">
       <Filter>Header Files</Filter>
@@ -81,6 +81,18 @@
     <ClInclude Include="World.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AnimatedSprite.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Place.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtils.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -95,12 +107,6 @@
     <ClCompile Include="DwarfMiningState.cpp">
       <Filter>Source Files\States\Dwarf</Filter>
     </ClCompile>
-    <ClCompile Include="AnimatedSprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DwarfGlobalState.cpp">
       <Filter>Source Files\States\Dwarf</Filter>
     </ClCompile>
@@ -114,6 +120,15 @@
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
     <ClCompile Include="World.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedSprite.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Place.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

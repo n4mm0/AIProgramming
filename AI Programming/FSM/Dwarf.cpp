@@ -18,13 +18,14 @@ Dwarf::~Dwarf()
 	delete m_oFSM;
 }
 
-Dwarf::Dwarf(float _MaxStamina, float _MinStamina, float _MaxVelocity, float _MaxForce, int _BackpackCapacity)
+Dwarf::Dwarf(float _MaxStamina, float _MinStamina, float _MaxVelocity, float _MaxForce, float _SightRadius, int _BackpackCapacity)
 	:	m_fStamina(0.0f), m_iBackpackSize(0), m_iTimer(0), m_oSprite(nullptr),
 		m_fMaxStamina(_MaxStamina), m_fMinStamina(_MinStamina),
 		m_iBackpackCapacity(_BackpackCapacity)
 {
 	m_fMaxVelocity = _MaxVelocity;
 	m_fMaxForce = _MaxForce;
+	m_fSightRadius = _SightRadius;
 	m_oFSM = new FiniteStateMachine<Dwarf>(this, DwarfGlobalState::GetInstance());
 	m_oSteering = new SteeringBehaviors(this);
 }

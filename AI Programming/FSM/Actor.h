@@ -53,7 +53,12 @@ public:
 		return m_fMaxForce;
 	}
 	
+	float GetSightRadius() const
+	{
+		return m_fSightRadius;
+	}
+
 protected:
 	Vector2			m_vPosition, m_vVelocity;
-	float			m_fMaxVelocity, m_fMaxForce;
+	float			m_fMaxVelocity, m_fMaxForce, m_fSightRadius;
 };

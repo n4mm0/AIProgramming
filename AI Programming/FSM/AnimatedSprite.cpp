@@ -10,7 +10,9 @@ AnimatedSprite::~AnimatedSprite()
 
 void AnimatedSprite::Update(const sf::Vector2f& _position)
 {
-	setPosition(_position);
+	sf::Vector2f newPosition(_position.x - frameWidth / 2, _position.y - frameHeight / 2);
+	//setPosition(_position);
+	setPosition(newPosition);
 
 	if (currAnim != nullptr && !isPaused)
 	{

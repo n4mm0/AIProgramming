@@ -1,4 +1,5 @@
 #include "Dwarf.h"
+#include "Place.h"
 #include "GameConst.h"
 #include "World.h"
 #include "SFML\Graphics.hpp"
@@ -13,6 +14,7 @@ int main(void)
 	sBackground.setTexture(tBackground);
 
 	vecActors actors = World::GetInstance()->GetActors();
+	vecPlaces places = World::GetInstance()->GetPlaces();
 
 	while (window.isOpen())
 	{
@@ -36,6 +38,14 @@ int main(void)
 			(*it)->Update(0.1f);
 			(*it)->Draw(&window);
 		}
+
+		vecPlaces::iterator pIt = places.begin();
+		vecPlaces::iterator pEnd = places.end();
+		for (; pIt !=pEnd; ++pIt)
+		{
+			(*pIt)->Draw(&window);
+		}
+
 		window.display();
 	}
 

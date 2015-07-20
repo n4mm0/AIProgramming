@@ -1,6 +1,8 @@
 #include "SteeringBehaviors.h"
 
 #include "Actor.h"
+#include "Place.h"
+#include "MathUtils.h"
 
 SteeringBehaviors::SteeringBehaviors(Actor* bp) 
 	: m_Actor(bp)
@@ -79,11 +81,10 @@ Vector2 SteeringBehaviors::Arrive(const Vector2& target)
 {
 	Vector2 steering = target - m_Actor->GetPosition();
 	float distance = steering.Length();
-	float slowingRadius = 25.0f;
 
-	if (distance < slowingRadius) //Slowing radius
+	if (distance < m_Actor->GetSightRadius()) //Slowing radius
 	{
-		steering = steering.NormalizeCopy() * m_Actor->GetMaxVelocity() * (distance / slowingRadius);
+		steering = steering.NormalizeCopy() * m_Actor->GetMaxVelocity() * (distance / m_Actor->GetSightRadius());
 	}
 	else
 	{
@@ -119,8 +120,39 @@ Vector2 SteeringBehaviors::Wander()
 
 Vector2 SteeringBehaviors::ObstacleAvoidance()
 {
-	//To-do
-	return Vector2::ZERO;
+	//TO-DO: max see ahead!
+
+	//Search the nearest obstacle since we're going to go around it.
+	std::vector<Place*>::iterator it = m_obstacles.begin();
+	std::vector<Place*>::iterator end = m_obstacles.end();
+
+	float dynamic_length = m_Actor->GetVelocity().Length() / m_Actor->GetMaxVelocity();
+	Vector2 _ahead = m_Actor->GetPosition() + m_Actor->GetVelocity().NormalizeCopy() * dynamic_length * m_Actor->GetSightRadius();
+
+	Place* _nearestObstacle = nullptr;
+
+	for (; it != end; ++it)
+	{
+		if (LineCircleIntersection(_ahead, (*it)->GetPosition(), (*it)->GetRadius()) 
+			&& (_nearestObstacle == nullptr 
+				|| (m_Actor->GetPosition().Distance((*it)->GetPosition()) < m_Actor->GetPosition().Distance(_nearestObstacle->GetPosition()))))
+		{
+			_nearestObstacle = (*it);
+		}
+	}
+
+	//Calculate the avoidance force
+	Vector2 steering;
+
+	if (_nearestObstacle != nullptr)
+	{
+		steering.x = _ahead.x - _nearestObstacle->GetPosition().x;
+		steering.y = _ahead.y - _nearestObstacle->GetPosition().y;
+		steering.Truncate(3.0f); //truncate by max avoidance force
+	}
+	else steering = Vector2::ZERO;
+
+	return steering;
 }
 
 Vector2 SteeringBehaviors::WallAvoidance(const Vector2& target)

@@ -11,7 +11,7 @@ class Dwarf : public Actor
 public:
 	Dwarf();
 	~Dwarf();
-	Dwarf(float _MaxStamina, float _MinStamina, float _MaxVelocity, float _MaxForce, int _BackpackCapacity);
+	Dwarf(float _MaxStamina, float _MinStamina, float _MaxVelocity, float _MaxForce, float _SightRadius, int _BackpackCapacity);
 
 	void Init();
 	void Update(float _DeltaTime);

@@ -28,7 +28,6 @@ Dwarf::Dwarf(float _MaxStamina, float _MinStamina, float _MaxVelocity, float _Ma
 	m_fMaxVelocity = _MaxVelocity;
 	m_fMaxForce = _MaxForce;
 	m_fSightRadius = _SightRadius;
-	DwarfGlobalState::Init();
 	m_oFSM = new FiniteStateMachine<Dwarf>(this, DwarfGlobalState::GetSingleton());
 	m_oSteering = new SteeringBehaviors(this);
 }
@@ -36,9 +35,6 @@ Dwarf::Dwarf(float _MaxStamina, float _MinStamina, float _MaxVelocity, float _Ma
 void Dwarf::Init()
 {
 	Actor::Init();
-	DwarfIdleState::Init();
-	DwarfMiningState::Init();
-	DwarfWalkState::Init();
 	m_oFSM->ChangeState(DwarfIdleState::GetSingleton());
 }
 

@@ -1,37 +1,37 @@
 #pragma once
 
 
-#define IS_SINGLETON(T)public: static void Init(){ if (T::IsNotInit()){ new T(); } };private: T(){}; T(const T& other); T& operator=(const T& other);
+#define IS_SINGLETON(T)friend class Singleton<T>; private: T(){}; T(const T& other); T& operator=(const T& other);
 
 template <typename T> class Singleton
 {
-	static T* ms_singleton;
+	static T* m_oInstance;
 
 public:
-	Singleton()
-	{
-		ms_singleton = static_cast <T*> (this);
-	}
 	static bool IsNotInit()
 	{
-		return ms_singleton == nullptr;
+		return m_oInstance == nullptr;
 	}
 	~Singleton()
 	{
-		delete(ms_singleton);
+		delete(m_oInstance);
 	}
 
 	static T* GetSingleton()
 	{
-		return ms_singleton;
+		if (IsNotInit())
+		{
+			m_oInstance = new T();
+		}
+		return m_oInstance;
 	}
 
 	static void Release()
 	{
-		delete(ms_singleton);
-		ms_singleton = nullptr;
+		delete(m_oInstance);
+		m_oInstance = nullptr;
 	}
 
 };
 
-template <typename T> T* Singleton <T>::ms_singleton = 0;
+template <typename T> T* Singleton <T>::m_oInstance = 0;

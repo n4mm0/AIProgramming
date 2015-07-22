@@ -3,19 +3,20 @@
 #include "State.h"
 #include "Dwarf.h"
 
-class DwarfWalkState : public State<Dwarf>
+class DwarfWalkState : public State<Dwarf>, public Singleton<DwarfWalkState>
 {
+	IS_SINGLETON(DwarfWalkState);
 public:
-	static DwarfWalkState* GetInstance();
+	//static DwarfWalkState* GetInstance();
 	~DwarfWalkState();
 
 	void OnEnter(Dwarf* _Owner);
 	void OnUpdate(Dwarf* _Owner);
 	void OnExit(Dwarf* _Owner);
 private:
-	DwarfWalkState(){}
+	/*DwarfWalkState(){}
 	DwarfWalkState(const DwarfWalkState& _Other){}
 	DwarfWalkState& operator=(const DwarfWalkState& _Other){}
 
-	static DwarfWalkState*	m_oInstance;
+	static DwarfWalkState*	m_oInstance;*/
 };

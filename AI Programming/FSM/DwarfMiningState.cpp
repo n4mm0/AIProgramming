@@ -3,7 +3,7 @@
 #include "GameConst.h"
 #include <iostream>
 
-DwarfMiningState* DwarfMiningState::m_oInstance = nullptr;
+/*DwarfMiningState* DwarfMiningState::m_oInstance = nullptr;
 
 DwarfMiningState* DwarfMiningState::GetInstance()
 {
@@ -12,11 +12,11 @@ DwarfMiningState* DwarfMiningState::GetInstance()
 		m_oInstance = new DwarfMiningState();
 	}
 	return m_oInstance;
-}
+}*/
 
 DwarfMiningState::~DwarfMiningState()
 {
-	delete(m_oInstance);
+	DwarfMiningState::Release();
 }
 
 void DwarfMiningState::OnEnter(Dwarf* _Owner)
@@ -32,7 +32,7 @@ void DwarfMiningState::OnUpdate(Dwarf* _Owner)
 	}
 	else
 	{
-		_Owner->ChangeState(DwarfWalkState::GetInstance());
+		_Owner->ChangeState(DwarfWalkState::GetSingleton());
 	}
 }
 

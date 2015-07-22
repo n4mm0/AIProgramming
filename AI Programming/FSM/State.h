@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Singleton.h"
+
 template <typename T>
 class State abstract
 {

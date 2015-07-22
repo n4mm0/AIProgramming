@@ -1,5 +1,7 @@
 #include "Dwarf.h"
 #include "DwarfIdleState.h"
+#include "DwarfMiningState.h"
+#include "DwarfWalkState.h"
 #include "DwarfGlobalState.h"
 #include "GameConst.h"
 #include <iostream>
@@ -9,7 +11,7 @@ Dwarf::Dwarf() : m_fStamina(0.0f), m_iBackpackSize(0), m_iTimer(0), m_oSprite(nu
 	m_fMaxStamina = GameConst::MAX_STAMINA;
 	m_iBackpackCapacity = GameConst::BACKPACK_CAPACITY;
 	m_fMaxVelocity = GameConst::MAX_DWARF_SPD;
-	m_oFSM = new FiniteStateMachine<Dwarf>(this, DwarfGlobalState::GetInstance());
+	m_oFSM = new FiniteStateMachine<Dwarf>(this, DwarfGlobalState::GetSingleton());
 	m_oSteering = new SteeringBehaviors(this);
 }
 
@@ -26,14 +28,18 @@ Dwarf::Dwarf(float _MaxStamina, float _MinStamina, float _MaxVelocity, float _Ma
 	m_fMaxVelocity = _MaxVelocity;
 	m_fMaxForce = _MaxForce;
 	m_fSightRadius = _SightRadius;
-	m_oFSM = new FiniteStateMachine<Dwarf>(this, DwarfGlobalState::GetInstance());
+	DwarfGlobalState::Init();
+	m_oFSM = new FiniteStateMachine<Dwarf>(this, DwarfGlobalState::GetSingleton());
 	m_oSteering = new SteeringBehaviors(this);
 }
 
 void Dwarf::Init()
 {
 	Actor::Init();
-	m_oFSM->ChangeState(DwarfIdleState::GetInstance());
+	DwarfIdleState::Init();
+	DwarfMiningState::Init();
+	DwarfWalkState::Init();
+	m_oFSM->ChangeState(DwarfIdleState::GetSingleton());
 }
 
 void Dwarf::SetupSprite(const sf::Texture& _texture, unsigned int _fw, unsigned int _fh)

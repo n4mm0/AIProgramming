@@ -10,7 +10,8 @@ public:
 		: m_oOwner(_Owner)
 		, m_oGlobalState(_GlobalState)
 		, m_oActualState(nullptr)
-		, m_oPreviousState(nullptr){};
+		, m_oPreviousState(nullptr)
+	{};
 	
 	FiniteStateMachine(const FiniteStateMachine<T>& other)
 	{

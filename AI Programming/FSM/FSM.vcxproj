@@ -80,6 +80,7 @@
     <ClInclude Include="GameConst.h" />
     <ClInclude Include="MathUtils.h" />
     <ClInclude Include="Place.h" />
+    <ClInclude Include="Singleton.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="DwarfWalkState.h" />
     <ClInclude Include="SteeringBehaviors.h" />

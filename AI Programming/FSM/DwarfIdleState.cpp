@@ -3,7 +3,7 @@
 #include "GameConst.h"
 #include <iostream>
 
-DwarfIdleState* DwarfIdleState::m_oInstance = nullptr;
+/*DwarfIdleState* DwarfIdleState::m_oInstance = nullptr;
 
 DwarfIdleState* DwarfIdleState::GetInstance()
 {
@@ -12,11 +12,11 @@ DwarfIdleState* DwarfIdleState::GetInstance()
 		m_oInstance = new DwarfIdleState();
 	}
 	return m_oInstance;
-}
+}*/
 
 DwarfIdleState::~DwarfIdleState()
 {
-	delete(m_oInstance);
+	DwarfIdleState::Release();
 }
 
 void DwarfIdleState::OnEnter(Dwarf* _Owner)
@@ -33,7 +33,7 @@ void DwarfIdleState::OnUpdate(Dwarf* _Owner)
 	}
 	else
 	{
-		_Owner->ChangeState(DwarfWalkState::GetInstance());
+		_Owner->ChangeState(DwarfWalkState::GetSingleton());
 	}
 }
 

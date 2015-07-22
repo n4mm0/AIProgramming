@@ -6,7 +6,7 @@
 #include <iostream>
 #include <math.h>
 
-DwarfWalkState* DwarfWalkState::m_oInstance = nullptr;
+/*DwarfWalkState* DwarfWalkState::m_oInstance = nullptr;
 
 DwarfWalkState* DwarfWalkState::GetInstance()
 {
@@ -15,24 +15,24 @@ DwarfWalkState* DwarfWalkState::GetInstance()
 		m_oInstance = new DwarfWalkState();
 	}
 	return m_oInstance;
-}
+}*/
 
 DwarfWalkState::~DwarfWalkState()
 {
-	delete(m_oInstance);
+	DwarfWalkState::Release();
 }
 
 void DwarfWalkState::OnEnter(Dwarf* _Owner)
 {
 	_Owner->GetSteeringBehaviors()->SetObstacles(World::GetInstance()->GetPlaces());
 	_Owner->GetSteeringBehaviors()->ObstacleAvoidanceOn();
-	if (_Owner->GetFSM()->GetPreviousState() == DwarfMiningState::GetInstance() || _Owner->GetStamina() <= _Owner->GetMinStamina())
+	if (_Owner->GetFSM()->GetPreviousState() == DwarfMiningState::GetSingleton() || _Owner->GetStamina() <= _Owner->GetMinStamina())
 	{
 		_Owner->GetSteeringBehaviors()->SetTarget(GameConst::HOME_POSITION);
 		//_Owner->GetSteeringBehaviors()->SeekOn();
 		_Owner->GetSteeringBehaviors()->ArriveOn();
 	}
-	else if (_Owner->GetFSM()->GetPreviousState() == DwarfIdleState::GetInstance())
+	else if (_Owner->GetFSM()->GetPreviousState() == DwarfIdleState::GetSingleton())
 	{
 		_Owner->GetSteeringBehaviors()->SetTarget(GameConst::MINES_POSITION);
 		//_Owner->GetSteeringBehaviors()->SeekOn();
@@ -49,11 +49,11 @@ void DwarfWalkState::OnUpdate(Dwarf* _Owner)
 	//Ho pensato di calcolare la distanza fra i due punti, se è minore di un certo limite, allora è arrivato!
 	if (target == GameConst::MINES_POSITION && distance < 2.0f)
 	{
-		_Owner->ChangeState(DwarfMiningState::GetInstance());
+		_Owner->ChangeState(DwarfMiningState::GetSingleton());
 	}
 	else if (target == GameConst::HOME_POSITION && distance < 2.0f)
 	{
-		_Owner->ChangeState(DwarfIdleState::GetInstance());
+		_Owner->ChangeState(DwarfIdleState::GetSingleton());
 	}
 }
 

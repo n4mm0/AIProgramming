@@ -124,12 +124,12 @@ Vector2 SteeringBehaviors::Wander()
 	// Some other useful infos on the book "ai-game-engine-programming" pages 461/462
 
 	// Some vars, need to think where to put them
-	float DELTA = 5.0f;
-	float CIRCLE_DISTANCE = 15.0f;
-	float CIRCLE_RADIUS = 2.0f;
+	float DELTA = 0.15f;
+	float CIRCLE_DISTANCE = 6.0f;
+	float CIRCLE_RADIUS = 3.0f;
 
 	// Theta represents “where” we are on the circle, perturbing it is what causes the guy to wander
-	m_thetaValue += (RandomRange(-DELTA, DELTA) * 2 * DELTA) - DELTA;
+	m_thetaValue += (randflt() * 2 * DELTA) - DELTA;
 
 	// We are using a circle ahead of the player to determine the wander force
 	Vector2 circleCenter((m_Actor->GetVelocity()).NormalizeCopy() * CIRCLE_DISTANCE);

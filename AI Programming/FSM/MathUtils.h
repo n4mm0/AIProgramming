@@ -11,3 +11,8 @@ inline float RandomRange(float low, float high)
 {
 	return low + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (high - low)));
 }
+
+inline float randflt()
+{
+	return static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+}

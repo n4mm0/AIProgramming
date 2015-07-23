@@ -6,6 +6,8 @@
 
 int main(void)
 {
+	srand(time(0));
+
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Dwarf Job");
 
 	sf::Texture tBackground;

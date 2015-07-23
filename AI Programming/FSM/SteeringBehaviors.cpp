@@ -1,13 +1,15 @@
 #include "SteeringBehaviors.h"
+#include <math.h>
 
 #include "Actor.h"
 #include "Place.h"
 #include "MathUtils.h"
 
-SteeringBehaviors::SteeringBehaviors(Actor* bp) 
+SteeringBehaviors::SteeringBehaviors(Actor* bp)
 	: m_Actor(bp)
 	, m_oTarget(nullptr)
 	, m_iFlags(0)
+	, m_thetaValue(0.0f)
 {
 
 }
@@ -56,6 +58,10 @@ void SteeringBehaviors::SumForces()
 	if (CohesionIsOn())				m_steering += Cohesion(m_neighbors);
 	if (AlignmentIsOn())			m_steering += Alignment(m_target);
 }
+
+/*
+** Useful tutorial series: http://gamedevelopment.tutsplus.com/series/understanding-steering-behaviors--gamedev-12732
+*/
 
 Vector2 SteeringBehaviors::Seek(const Vector2& target)
 {
@@ -114,8 +120,25 @@ Vector2 SteeringBehaviors::Evade(const Actor* target)
 
 Vector2 SteeringBehaviors::Wander()
 {
-	//To-do
-	return Vector2::ZERO;
+	//TO-DO: some test to tweak it and double checking, I'm still not 100% convinced on how it behaves
+	// Some other useful infos on the book "ai-game-engine-programming" pages 461/462
+
+	// Some vars, need to think where to put them
+	float DELTA = 5.0f;
+	float CIRCLE_DISTANCE = 15.0f;
+	float CIRCLE_RADIUS = 2.0f;
+
+	// Theta represents “where” we are on the circle, perturbing it is what causes the guy to wander
+	m_thetaValue += (RandomRange(-DELTA, DELTA) * 2 * DELTA) - DELTA;
+
+	// We are using a circle ahead of the player to determine the wander force
+	Vector2 circleCenter((m_Actor->GetVelocity()).NormalizeCopy() * CIRCLE_DISTANCE);
+
+	Vector2 circleTarget(CIRCLE_RADIUS*cos(m_thetaValue), CIRCLE_RADIUS*sin(m_thetaValue));
+
+	// Calculate the wander force
+	Vector2 steering(circleCenter + circleTarget);
+	return steering;
 }
 
 Vector2 SteeringBehaviors::ObstacleAvoidance()
@@ -170,7 +193,6 @@ Vector2 SteeringBehaviors::Interpose(const Vector2& target)
 Vector2 SteeringBehaviors::Separation(const std::vector<Actor*>& neighbors)
 {
 	Vector2 vRes, vTemp;
-	float fMagnitude;
 	std::vector<Actor*>::const_iterator vIter = neighbors.cbegin();
 	for (; vIter != neighbors.cend(); ++vIter)
 	{

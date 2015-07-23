@@ -28,15 +28,17 @@ void DwarfWalkState::OnEnter(Dwarf* _Owner)
 	_Owner->GetSteeringBehaviors()->ObstacleAvoidanceOn();
 	if (_Owner->GetFSM()->GetPreviousState() == DwarfMiningState::GetSingleton() || _Owner->GetStamina() <= _Owner->GetMinStamina())
 	{
-		_Owner->GetSteeringBehaviors()->SetTarget(GameConst::HOME_POSITION);
+		//_Owner->GetSteeringBehaviors()->SetTarget(GameConst::HOME_POSITION);
 		//_Owner->GetSteeringBehaviors()->SeekOn();
-		_Owner->GetSteeringBehaviors()->ArriveOn();
+		//_Owner->GetSteeringBehaviors()->ArriveOn();
+		_Owner->GetSteeringBehaviors()->WanderOn();
 	}
 	else if (_Owner->GetFSM()->GetPreviousState() == DwarfIdleState::GetSingleton())
 	{
-		_Owner->GetSteeringBehaviors()->SetTarget(GameConst::MINES_POSITION);
+		//_Owner->GetSteeringBehaviors()->SetTarget(GameConst::MINES_POSITION);
 		//_Owner->GetSteeringBehaviors()->SeekOn();
-		_Owner->GetSteeringBehaviors()->ArriveOn();
+		//_Owner->GetSteeringBehaviors()->ArriveOn();
+		_Owner->GetSteeringBehaviors()->WanderOn();
 	}
 }
 

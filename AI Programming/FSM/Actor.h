@@ -1,35 +1,64 @@
 #pragma once
 
+#include "SFML\System\Vector2.hpp"
+#include "SFML\Graphics.hpp"
+#include "Vector2.h"
+
 class Actor
 {
 public:
 	virtual ~Actor(){}
 
-	virtual void Init(float _Velo)
+	// Empty but eventually useful in the future
+	virtual void Init()
 	{
-		m_fMaxVelocity = _Velo;
+
 	};
 
 	virtual void Update(float _DeltaTime)
 	{
 	};
+
+	virtual void Draw(sf::RenderWindow* _window)
+	{ 
+	};
 	
-	void SetVelocity(float _Velo)
+	void SetPosition(Vector2 _newPosition)
 	{
-		m_fVelocity = _Velo;
+		m_vPosition = _newPosition;
+	}
+
+	Vector2 GetPosition()
+	{
+		return m_vPosition;
 	}
 	
-	float GetVelocity() const
+	void SetVelocity(Vector2 _Velo)
 	{
-		return m_fVelocity;
+		m_vVelocity = _Velo;
+	}
+	
+	Vector2 GetVelocity() const
+	{
+		return m_vVelocity;
 	}
 	
 	float GetMaxVelocity() const
 	{
 		return m_fMaxVelocity;
 	}
-	
-protected:
-	float	m_fVelocity, m_fMaxVelocity;
 
+	float GetMaxForce() const
+	{
+		return m_fMaxForce;
+	}
+	
+	float GetSightRadius() const
+	{
+		return m_fSightRadius;
+	}
+
+protected:
+	Vector2			m_vPosition, m_vVelocity;
+	float			m_fMaxVelocity, m_fMaxForce, m_fSightRadius;
 };

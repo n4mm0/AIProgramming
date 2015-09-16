@@ -2,7 +2,7 @@
 #include "DwarfWalkState.h"
 #include "GameConst.h"
 
-DwarfGlobalState* DwarfGlobalState::m_oInstance = nullptr;
+/*DwarfGlobalState* DwarfGlobalState::m_oInstance = nullptr;
 
 DwarfGlobalState* DwarfGlobalState::GetInstance()
 {
@@ -11,18 +11,17 @@ DwarfGlobalState* DwarfGlobalState::GetInstance()
 		m_oInstance = new DwarfGlobalState();
 	}
 	return m_oInstance;
-}
+}*/
 
 DwarfGlobalState::~DwarfGlobalState()
 {
-	delete(m_oInstance);
+	DwarfGlobalState::Release();
 }
 
 void DwarfGlobalState::OnUpdate(Dwarf* _Owner)
 {
-	if (_Owner->GetStamina() <= _Owner->GetMinStamina())
+	if (_Owner->GetStamina() <= _Owner->GetMinStamina() && _Owner->GetSteeringBehaviors()->GetTarget() != GameConst::HOME_POSITION)
 	{
-		_Owner->SetTarget(GameConst::HOME_POSITION);
-		_Owner->ChangeState(DwarfWalkState::GetInstance());
+		_Owner->ChangeState(DwarfWalkState::GetSingleton());
 	}
 }

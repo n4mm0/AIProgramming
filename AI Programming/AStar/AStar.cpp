@@ -306,12 +306,3 @@ void AStar::PrintPath(Node* pNode, sf::RectangleShape board[]) const
     
     std::cout << "\n\n\n";*/
 }
-
-
-
-
-
-
-
-
-

@@ -1,5 +1,7 @@
 #include "Dwarf.h"
 #include "DwarfIdleState.h"
+#include "DwarfMiningState.h"
+#include "DwarfWalkState.h"
 #include "DwarfGlobalState.h"
 #include "GameConst.h"
 #include <iostream>
@@ -8,7 +10,9 @@ Dwarf::Dwarf() : m_fStamina(0.0f), m_iBackpackSize(0), m_iTimer(0), m_oSprite(nu
 {
 	m_fMaxStamina = GameConst::MAX_STAMINA;
 	m_iBackpackCapacity = GameConst::BACKPACK_CAPACITY;
-	m_oFSM = new FiniteStateMachine<Dwarf>(this, DwarfGlobalState::GetInstance());
+	m_fMaxVelocity = GameConst::MAX_DWARF_SPD;
+	m_oFSM = new FiniteStateMachine<Dwarf>(this, DwarfGlobalState::GetSingleton());
+	m_oSteering = new SteeringBehaviors(this);
 }
 
 Dwarf::~Dwarf()
@@ -16,18 +20,22 @@ Dwarf::~Dwarf()
 	delete m_oFSM;
 }
 
-Dwarf::Dwarf(float _MaxStamina, float _MinStamina, int _BackpackCapacity) : m_fStamina(0.0f), m_iBackpackSize(0), m_iTimer(0), m_oSprite(nullptr)
+Dwarf::Dwarf(float _MaxStamina, float _MinStamina, float _MaxVelocity, float _MaxForce, float _SightRadius, int _BackpackCapacity)
+	:	m_fStamina(0.0f), m_iBackpackSize(0), m_iTimer(0), m_oSprite(nullptr),
+		m_fMaxStamina(_MaxStamina), m_fMinStamina(_MinStamina),
+		m_iBackpackCapacity(_BackpackCapacity)
 {
-	m_fMaxStamina = _MaxStamina;
-	m_fMinStamina = _MinStamina;
-	m_iBackpackCapacity = _BackpackCapacity;
-	m_oFSM = new FiniteStateMachine<Dwarf>(this, DwarfGlobalState::GetInstance());
+	m_fMaxVelocity = _MaxVelocity;
+	m_fMaxForce = _MaxForce;
+	m_fSightRadius = _SightRadius;
+	m_oFSM = new FiniteStateMachine<Dwarf>(this, DwarfGlobalState::GetSingleton());
+	m_oSteering = new SteeringBehaviors(this);
 }
 
 void Dwarf::Init()
 {
-	Actor::Init(GameConst::MAX_DWARF_SPD);
-	m_oFSM->ChangeState(DwarfIdleState::GetInstance());
+	Actor::Init();
+	m_oFSM->ChangeState(DwarfIdleState::GetSingleton());
 }
 
 void Dwarf::SetupSprite(const sf::Texture& _texture, unsigned int _fw, unsigned int _fh)
@@ -41,26 +49,46 @@ void Dwarf::Update(float _DeltaTime)
 	Actor::Update(_DeltaTime);
 	m_oFSM->Update();
 
-	//Let's apply the force!
-	m_vPosition += m_vMoveDirection;
+	m_oSteering->Calculate();
+	//m_vVelocity = m_oSteering->GetForce();
+
+	Vector2 vSteering = m_vVelocity + m_oSteering->GetForce(); //velocity = truncate (velocity + steering , max_speed)
+	vSteering.Truncate(m_fMaxVelocity);
+	m_vVelocity = vSteering;
+
+	m_vPosition += m_vVelocity * _DeltaTime;
 
 	//Change animation based on moveDirection
-	if (m_vMoveDirection.y < 0)
+	if (m_vVelocity.y < 0)
 	{
 		m_oSprite->playAnim("walkUp");
 	}
-	else
+	else if (m_vVelocity.y > 0)
 	{
 		m_oSprite->playAnim("walkDown");
 	}
+	else
+	{
+		m_oSprite->playAnim("idle");
+	}
 
-	//We're done with the forces of this frame
-	m_vMoveDirection = sf::Vector2f(0.0f, 0.0f);
+	// We're done with the forces of this frame
+	// m_vMoveDirection = sf::Vector2f(0.0f, 0.0f);
 
 	//Time to update the sprite
 	if (m_oSprite != nullptr)
 	{
-		m_oSprite->Update(m_vPosition);
+		m_oSprite->Update(m_vPosition.GetSfVec());
+	}
+}
+
+void Dwarf::Draw(sf::RenderWindow* _window)
+{
+	Actor::Draw(_window);
+
+	if (_window != nullptr)
+	{
+		_window->draw(*m_oSprite);
 	}
 }
 
@@ -69,30 +97,14 @@ AnimatedSprite* Dwarf::GetSprite()
 	return m_oSprite;
 }
 
-void Dwarf::SetPosition(const sf::Vector2f& _position)
+const FiniteStateMachine<Dwarf>* const Dwarf::GetFSM() const
 {
-	m_vPosition.x = _position.x;
-	m_vPosition.y = _position.y;
+	return m_oFSM;
 }
 
-const sf::Vector2f& Dwarf::GetPosition()
+SteeringBehaviors* Dwarf::GetSteeringBehaviors()
 {
-	return m_vPosition;
-}
-
-void Dwarf::AddForce(const sf::Vector2f& _vector)
-{
-	m_vMoveDirection += _vector;
-}
-
-void Dwarf::SetTarget(sf::Vector2f _Target)
-{
-	m_vTarget = _Target;
-}
-
-sf::Vector2f Dwarf::GetTarget() const
-{
-	return m_vTarget;
+	return m_oSteering;
 }
 
 void Dwarf::SetStamina(float _Stamina)

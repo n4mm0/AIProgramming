@@ -1,34 +1,22 @@
 #include "Dwarf.h"
+#include "Place.h"
 #include "GameConst.h"
+#include "World.h"
 #include "SFML\Graphics.hpp"
 
 int main(void)
 {
+	srand(time(0));
+
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Dwarf Job");
-
-	Dwarf myDwarf(50.0f, 1.0f, 100);
-	myDwarf.Init();
-	myDwarf.SetPosition(GameConst::HOME_POSITION);
-
-	sf::Texture tDwarf;
-	tDwarf.loadFromFile("assets/dwarf.png");
-	myDwarf.SetupSprite(tDwarf, 22, 38);
-	myDwarf.GetSprite()->setOrigin(GameConst::VEC2_ZERO);
-	
-	unsigned int animarray[] = { 0, 1, 0, 2};
-	myDwarf.GetSprite()->addAnim("walkDown", animarray, 4, false);
-	animarray[0] = 3;
-	animarray[1] = 4;
-	animarray[2] = 3;
-	animarray[3] = 5;
-	myDwarf.GetSprite()->addAnim("walkUp", animarray, 4, false);
-
-	myDwarf.GetSprite()->playAnim("walkDown");
 
 	sf::Texture tBackground;
 	tBackground.loadFromFile("assets/background.png");
 	sf::Sprite sBackground;
 	sBackground.setTexture(tBackground);
+
+	vecActors actors = World::GetInstance()->GetActors();
+	vecPlaces places = World::GetInstance()->GetPlaces();
 
 	while (window.isOpen())
 	{
@@ -42,11 +30,24 @@ int main(void)
 					window.close();
 		}
 
-		myDwarf.Update(0.1f);
-
 		window.clear();
 		window.draw(sBackground);
-		window.draw(*(myDwarf.GetSprite()));
+
+		vecActors::iterator it = actors.begin();
+		vecActors::iterator end = actors.end();
+		for (; it != end; ++it)
+		{
+			(*it)->Update(0.1f);
+			(*it)->Draw(&window);
+		}
+
+		vecPlaces::iterator pIt = places.begin();
+		vecPlaces::iterator pEnd = places.end();
+		for (; pIt !=pEnd; ++pIt)
+		{
+			(*pIt)->Draw(&window);
+		}
+
 		window.display();
 	}
 

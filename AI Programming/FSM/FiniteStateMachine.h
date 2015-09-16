@@ -6,7 +6,13 @@ template <typename T>
 class FiniteStateMachine
 {
 public:
-	FiniteStateMachine(T* _Owner, State<T>* _GlobalState) : m_oOwner(_Owner), m_oGlobalState(_GlobalState), m_oActualState(nullptr), m_oPreviousState(nullptr){};
+	FiniteStateMachine(T* _Owner, State<T>* _GlobalState) 
+		: m_oOwner(_Owner)
+		, m_oGlobalState(_GlobalState)
+		, m_oActualState(nullptr)
+		, m_oPreviousState(nullptr)
+	{};
+	
 	FiniteStateMachine(const FiniteStateMachine<T>& other)
 	{
 		if (this != &other)
@@ -28,11 +34,18 @@ public:
 		m_oActualState = _newState;
 		m_oActualState->OnEnter(m_oOwner);
 	}
+
 	void Update()
 	{
 		m_oGlobalState->OnUpdate(m_oOwner);
 		m_oActualState->OnUpdate(m_oOwner);
 	}
+
+	const State<T>* const GetPreviousState() const
+	{
+		return m_oPreviousState;
+	}
+
 private:
 	State<T>*	m_oPreviousState;
 	State<T>*	m_oActualState;

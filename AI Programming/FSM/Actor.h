@@ -7,21 +7,13 @@
 class Actor
 {
 public:
-	virtual ~Actor(){}
+	virtual ~Actor() {}
 
-	// Empty but eventually useful in the future
-	virtual void Init()
-	{
+	virtual void Init() {}
 
-	};
+	virtual void Update(float _DeltaTime) {}
 
-	virtual void Update(float _DeltaTime)
-	{
-	};
-
-	virtual void Draw(sf::RenderWindow* _window)
-	{ 
-	};
+	virtual void Draw(sf::RenderWindow* _window) {}
 	
 	void SetPosition(Vector2 _newPosition)
 	{

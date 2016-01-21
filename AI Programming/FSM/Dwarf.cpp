@@ -50,7 +50,6 @@ void Dwarf::Update(float _DeltaTime)
 	m_oFSM->Update();
 
 	m_oSteering->Calculate();
-	//m_vVelocity = m_oSteering->GetForce();
 
 	Vector2 vSteering = m_vVelocity + m_oSteering->GetForce(); //velocity = truncate (velocity + steering , max_speed)
 	vSteering.Truncate(m_fMaxVelocity);
